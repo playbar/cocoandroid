@@ -1,27 +1,3 @@
-/****************************************************************************
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
- http://www.cocos2d-x.org
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
-
 #include "HaowanLibScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
@@ -261,6 +237,152 @@ void HaowanLibScene::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
+
+
+int HaowanLibScene::createLayer()
+{
+    Node *draw = DrawNode::create();
+    addChild(draw, 10);
+    return -1;
+}
+
+int HaowanLibScene::deleteLayer(int id)
+{
+    
+    return -1;
+}
+int HaowanLibScene::copyLayer(int id)
+{
+    return -1;
+}
+
+int HaowanLibScene::clearLayer(int id)
+{
+    return -1;
+}
+int HaowanLibScene::mergeLayer(int id1, int id2, int merge_mode)
+{
+    return -1;
+}
+int HaowanLibScene::swapLayer(int layer1, int layer2)
+{
+    return -1;
+}
+
+Node *HaowanLibScene::getCurrentLayer(int id)
+{
+    return NULL;
+}
+int HaowanLibScene::setOpacity(float opacity)
+{
+    return -1;
+}
+float HaowanLibScene::getOpacity()
+{
+    return 0.0f;
+}
+int HaowanLibScene::setVisiable(int id, bool visiable)
+{
+    return -1;
+}
+bool HaowanLibScene::getVisiable(int id)
+{
+    return false;
+}
+int HaowanLibScene::setLock(int id, bool block)
+{
+    return -1;
+}
+bool HaowanLibScene::getLock(int id)
+{
+    return false;
+}
+int HaowanLibScene::setTranslate(float x, float y, float z)
+{
+    return -1;
+}
+//vec3 getTranslate();//当前图层，获取当前图层的位置，返回图层所在的位置
+int HaowanLibScene::setScale(float cx, float cy, float scale)
+{
+    return -1;
+}
+//vec3 getScale(); // 获取当前图层的缩放比例，
+int HaowanLibScene::setRotate(float cx, float cy, float angle)
+{
+    return -1;
+}
+//vec3 getRotate(); //获取当前旋转值
+////////////////////////
+int HaowanLibScene::setAllTranslate(float x, float y, float z)
+{
+    return -1;
+}
+
+cocos2d::Vec3 HaowanLibScene::getAllTranslate()
+{
+    return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
+}
+
+int HaowanLibScene::setAllScale(float cx, float cy, float scale)
+{
+    return -1;
+}
+cocos2d::Vec3 HaowanLibScene::getAllScale()
+{
+    return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
+}
+
+int HaowanLibScene::setAllRotate(float cx, float cy, float angle)
+{
+    return -1;
+}
+cocos2d::Vec3 HaowanLibScene::getAllRotate()
+{
+    return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
+}
+/////////////
+int HaowanLibScene::setBlendMode(int mode)
+{
+    return -1;
+}
+int HaowanLibScene::getBlendMode()
+{
+    return -1;
+}
+int HaowanLibScene::setBackgroundColor(float r, float g, float b, float a)
+{
+    return -1;
+}
+Color4B HaowanLibScene::getBackgroundColor()
+{
+    return Color4B();
+}
+
+int HaowanLibScene::setBackgroundTexture(int texid)
+{
+    return -1;
+}
+int HaowanLibScene::setBackgroundTexture(char *pdata)
+{
+    return -1;
+}
+int HaowanLibScene::setBackgroundTexture(std::string texid)
+{
+    return -1;
+}
+int HaowanLibScene::getBackgroundTexture()
+{
+    return -1;
+}
+
+int HaowanLibScene::getLayerThumbnailData(int layerid)
+{
+    return -1;
+}
+
+int HaowanLibScene::getThumbnailData()
+{
+    return -1;
+}
+
