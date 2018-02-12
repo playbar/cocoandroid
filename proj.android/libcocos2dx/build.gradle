@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+def stlType = 'c++_static'
+
+android {
+    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion '27.0.1'
+
+    defaultConfig {
+        minSdkVersion PROP_MIN_SDK_VERSION
+        targetSdkVersion PROP_TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_PLATFORM=android-24',
+                        '-DANDROID_TOOLCHAIN=clang',
+                        "-DANDROID_STL=${stlType}",
+                        '-DSAMPLE_NAME=' + project.getName()
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            aidl.srcDirs=['src/main/java/com/enhance/gameservice']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "../CMakeLists.txt"
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/android-async-http-1.4.9.jar')
+    implementation files('libs/com.android.vending.expansion.zipfile.jar')
+    implementation files('libs/EngineDataManager.jar')
+    implementation files('libs/httpclient-4.4.1.1.jar')
+}

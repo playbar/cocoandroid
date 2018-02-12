@@ -78,7 +78,7 @@ public class Cocos2dxHelper {
     // Fields
     // ===========================================================
 
-    private static Cocos2dxMusic sCocos2dMusic;
+    private static org.cocos2dx.lib.Cocos2dxMusic sCocos2dMusic;
     private static Cocos2dxSound sCocos2dSound = null;
     private static AssetManager sAssetManager;
     private static Cocos2dxAccelerometer sCocos2dxAccelerometer = null;

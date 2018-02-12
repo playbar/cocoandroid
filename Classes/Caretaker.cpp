@@ -10,6 +10,7 @@
 #include <string>
 #include <time.h>
 #include <map>
+#include <vector>
 
 using namespace std;
 
