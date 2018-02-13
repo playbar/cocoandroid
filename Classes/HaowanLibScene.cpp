@@ -16,28 +16,17 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
-bool HaowanLibScene::init()
-{
-    //////////////////////////////
-    // 1. super init first
-    if ( !Scene::init() )
-    {
-        return false;
-    }
 
+void HaowanLibScene::createMenu()
+{
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
     // add a "close" icon to exit the progress. it's an autorelease object
     auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HaowanLibScene::menuCloseCallback, this));
+            "CloseNormal.png",
+            "CloseSelected.png",
+            CC_CALLBACK_1(HaowanLibScene::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -52,11 +41,40 @@ bool HaowanLibScene::init()
         closeItem->setPosition(Vec2(x,y));
     }
 
+    // Events
+    MenuItemFont::setFontName("fonts/arial.ttf");
+    MenuItemFont::setFontSize(20);
+    // Bugs Item
+    auto item6 = MenuItemFont::create("Bugs", CC_CALLBACK_1(HaowanLibScene::menuCallback, this));
+    item6->setPosition( origin.x + 20., origin.y + 100);
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
+    auto menu = Menu::create(item6, closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+}
 
+void HaowanLibScene::menuCallback(Ref *pSender)
+{
+
+}
+
+// on "init" you need to initialize your instance
+bool HaowanLibScene::init()
+{
+    //////////////////////////////
+    // 1. super init first
+    if ( !Scene::init() )
+    {
+        return false;
+    }
+
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    /////////////////////////////
+
+    createMenu();
+//    return true;
     /////////////////////////////
     // 3. add your codes below...
 
