@@ -28,7 +28,7 @@ THE SOFTWARE.
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #include "platform/CCCommon.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include <android/log.h>
 #include <stdio.h>
 #include <jni.h>

@@ -36,7 +36,7 @@ THE SOFTWARE.
 #include "renderer/CCTextureCache.h"
 #include "renderer/ccGLStateCache.h"
 #include "2d/CCDrawingPrimitives.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include "network/CCDownloader-android.h"
 #include <android/log.h>
 #include <android/api-level.h>
@@ -78,7 +78,6 @@ extern "C"
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
 {
     JniHelper::setJavaVM(vm);
-
     cocos_android_app_init(JniHelper::getEnv());
 
     return JNI_VERSION_1_4;
@@ -127,7 +126,8 @@ JNIEXPORT jintArray Java_org_cocos2dx_lib_Cocos2dxActivity_getGLContextAttrs(JNI
 
 JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxAudioFocusManager_nativeOnAudioFocusChange(JNIEnv* env, jobject thiz, jint focusChange)
 {
-    cocos_audioengine_focus_change(focusChange);
+    //todo audio
+    //cocos_audioengine_focus_change(focusChange);
 }
 
 JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeOnSurfaceChanged(JNIEnv*  env, jobject thiz, jint w, jint h)

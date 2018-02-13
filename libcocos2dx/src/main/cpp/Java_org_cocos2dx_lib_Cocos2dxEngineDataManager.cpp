@@ -23,8 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
-#include "platform/android/jni/JniHelper.h"
+#include "Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
+#include "JniHelper.h"
 #include "platform/CCFileUtils.h"
 #include "platform/android/CCApplication-android.h"
 #include "base/CCDirector.h"
@@ -49,7 +49,7 @@ THE SOFTWARE.
 using namespace cocos2d;
 
 #if EDM_DEBUG
-#include "platform/android/jni/ProcessCpuTracker.h"
+#include "ProcessCpuTracker.h"
 
 namespace {
 

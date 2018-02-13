@@ -29,9 +29,9 @@ THE SOFTWARE.
 
 #include "platform/android/CCFileUtils-android.h"
 #include "platform/CCCommon.h"
-#include "platform/android/jni/JniHelper.h"
-#include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
-#include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
+#include "JniHelper.h"
+#include "Java_org_cocos2dx_lib_Cocos2dxHelper.h"
+#include "Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
 #include "android/asset_manager.h"
 #include "android/asset_manager_jni.h"
 #include "base/ZipUtils.h"

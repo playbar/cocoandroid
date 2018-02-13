@@ -226,15 +226,7 @@ add_library(cocos2dx_static STATIC
             cocos2d/cocos/platform/android/CCDevice-android.cpp
             cocos2d/cocos/platform/android/CCGLViewImpl-android.cpp
             cocos2d/cocos/platform/android/CCFileUtils-android.cpp
-            cocos2d/cocos/platform/android/javaactivity-android.cpp
             cocos2d/cocos/platform/android/CCEnhanceAPI-android.cpp
-            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxAccelerometer.cpp
-            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxBitmap.cpp
-            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxHelper.cpp
-            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxRenderer.cpp
-            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.cpp
-            cocos2d/cocos/platform/android/jni/JniHelper.cpp
-            cocos2d/cocos/platform/android/jni/TouchesJni.cpp
             cocos2d/external/recast/DebugUtils/DebugDraw.cpp
             cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp
             cocos2d/external/recast/Detour/DetourAlloc.cpp
@@ -252,6 +244,12 @@ add_library(cocos2dx_static STATIC
             cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp
             cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp
             cocos2d/external/recast/fastlz/fastlz.c
+            cocos2d/cocos/network/HttpClient-android.cpp
+            cocos2d/cocos/network/SocketIO.cpp
+            cocos2d/cocos/network/WebSocket.cpp
+            cocos2d/cocos/network/CCDownloader.cpp
+            cocos2d/cocos/network/CCDownloader-android.cpp
+            cocos2d/cocos/network/Uri.cpp
             #cocos2d/cocos/audio/android/ccdandroidUtils.cpp
             #cocos2d/cocos/audio/android/cddSimpleAudioEngine.cpp
             #cocos2d/cocos/audio/android/jni/cddandroidAndroidJavaEngine.cpp
@@ -306,6 +304,8 @@ target_include_directories(cocos2dx_static PRIVATE
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/tiff/include/android
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/jpeg/include/android
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/webp/include/android
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/websockets/include/android
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/openssl/include/android
                           ${ANDROID_NDK}/sources/third_party/shaderc/include)
 
 #////////////////////
@@ -355,9 +355,34 @@ add_library(tiff_lib STATIC IMPORTED)
 set_target_properties(tiff_lib PROPERTIES IMPORTED_LOCATION
                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/tiff/prebuilt/android/${ANDROID_ABI}/libtiff.a)
 
+ add_library(z_lib STATIC IMPORTED)
+ set_target_properties(z_lib PROPERTIES IMPORTED_LOCATION
+                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/zlib/prebuilt/android/${ANDROID_ABI}/libz.a)
+
+ add_library(websockets_lib STATIC IMPORTED)
+ set_target_properties(websockets_lib PROPERTIES IMPORTED_LOCATION
+                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/websockets/prebuilt/android/${ANDROID_ABI}/libwebsockets.a)
+
+ add_library(crypto_lib STATIC IMPORTED)
+ set_target_properties(crypto_lib PROPERTIES IMPORTED_LOCATION
+                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/openssl/prebuilt/android/${ANDROID_ABI}/libcrypto.a)
+
+ add_library(ssl_lib STATIC IMPORTED)
+ set_target_properties(ssl_lib PROPERTIES IMPORTED_LOCATION
+                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/openssl/prebuilt/android/${ANDROID_ABI}/libssl.a)
+
+
  add_library(MyGame SHARED
             libcocos2dx/src/main/cpp/main.cpp
             libcocos2dx/src/main/cpp/cpu-features.c
+            libcocos2dx/src/main/cpp/javaactivity-android.cpp
+            libcocos2dx/src/main/cpp/Java_org_cocos2dx_lib_Cocos2dxAccelerometer.cpp
+            libcocos2dx/src/main/cpp/Java_org_cocos2dx_lib_Cocos2dxBitmap.cpp
+            libcocos2dx/src/main/cpp/Java_org_cocos2dx_lib_Cocos2dxHelper.cpp
+            libcocos2dx/src/main/cpp/Java_org_cocos2dx_lib_Cocos2dxRenderer.cpp
+            libcocos2dx/src/main/cpp/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.cpp
+            libcocos2dx/src/main/cpp/JniHelper.cpp
+            libcocos2dx/src/main/cpp/TouchesJni.cpp
             Classes/AppDelegate.cpp
             Classes/HaowanLibScene.cpp
             Classes/Caretaker.cpp
@@ -380,7 +405,6 @@ target_link_libraries(MyGame
                       EGL
                       GLESv2
                       OpenSLES
-                      z
                       atomic
                       cocos2dx_static
                       bulletDynamics_lib
@@ -394,4 +418,8 @@ target_link_libraries(MyGame
                       freetype_lib
                       webp_lib
                       tiff_lib
+                      z_lib
+                      websockets_lib
+                      crypto_lib
+                      ssl_lib
                       )

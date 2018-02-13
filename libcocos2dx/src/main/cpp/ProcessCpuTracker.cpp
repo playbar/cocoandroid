@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "platform/android/jni/ProcessCpuTracker.h"
+#include "ProcessCpuTracker.h"
 
 #ifdef ANDROID
 #include <jni.h>

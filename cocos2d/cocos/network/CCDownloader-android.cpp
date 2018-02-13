@@ -26,7 +26,7 @@
 #include "network/CCDownloader-android.h"
 
 #include "network/CCDownloader.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 
 #include <mutex>
 

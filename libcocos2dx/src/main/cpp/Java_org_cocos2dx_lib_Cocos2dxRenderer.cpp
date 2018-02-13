@@ -29,7 +29,7 @@
 #include "base/CCEventDispatcher.h"
 #include "platform/CCApplication.h"
 #include "platform/CCFileUtils.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include <jni.h>
 
 #include "base/ccUTF8.h"

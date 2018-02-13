@@ -30,7 +30,7 @@ THE SOFTWARE.
 #include "platform/android/CCGLViewImpl-android.h"
 #include "base/CCDirector.h"
 #include "base/ccMacros.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include "CCGL.h"
 
 #include <stdlib.h>

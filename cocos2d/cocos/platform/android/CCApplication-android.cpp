@@ -27,8 +27,8 @@ THE SOFTWARE.
 #include "platform/CCPlatformConfig.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
-#include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
-#include "platform/android/jni/JniHelper.h"
+#include "Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
+#include "JniHelper.h"
 #include "platform/CCApplication.h"
 #include "base/CCDirector.h"
 #include <android/log.h>

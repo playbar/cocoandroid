@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include <android/log.h>
 #include <jni.h>
 #include "base/ccTypes.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include "platform/CCFileUtils.h"
 
 static const std::string helperClassName = "org/cocos2dx/lib/Cocos2dxHelper";

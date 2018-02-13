@@ -17,7 +17,7 @@
 #include "platform/CCPlatformConfig.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include "platform/android/CCEnhanceAPI-android.h"
 #include <android/log.h>
 #include <jni.h>

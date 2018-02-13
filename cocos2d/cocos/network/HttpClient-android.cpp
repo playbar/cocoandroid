@@ -37,7 +37,7 @@
 
 #include "base/CCDirector.h"
 #include "platform/CCFileUtils.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 
 #include "base/ccUTF8.h"
  
