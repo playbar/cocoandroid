@@ -98,6 +98,7 @@ bool HaowanLibScene::init()
     
     auto draw = DrawNode::create();
     addChild(draw, 10);
+    mCurrentLayer = draw;
     
     draw->drawPoint(Vec2(s.width/2-120, s.height/2-120), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
     
@@ -240,20 +241,22 @@ void HaowanLibScene::menuCloseCallback(Ref* pSender)
 }
 
 
-int HaowanLibScene::createLayer()
+Node *HaowanLibScene::createLayer()
 {
     Node *draw = DrawNode::create();
     addChild(draw, 10);
-    return -1;
+    return draw;
 }
 
-int HaowanLibScene::deleteLayer(int id)
+int HaowanLibScene::deleteLayer(Node *id)
 {
-    
+    removeChild(id);
     return -1;
 }
-int HaowanLibScene::copyLayer(int id)
+int HaowanLibScene::copyLayer(Node * id)
 {
+    Node *player = DrawNode::create();
+
     return -1;
 }
 

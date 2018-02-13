@@ -1,8 +1,12 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea
 .DS_Store
 /build
 /captures
 /.externalNativeBuild
+*.iml
+cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata
+proj.ios_mac/haowanlib.xcodeproj/project.xcworkspace
+proj.ios_mac/haowanlib.xcodeproj/xcuserdata
+proj.ios_mac/Build

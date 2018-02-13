@@ -59,9 +59,9 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HaowanLibScene);
 public:
-    int createLayer(); //返回创建图层的id，发回UI层使用，成功返回从1开始的值，失败返回-1
-    int deleteLayer(int id); //删除图层，成功返回1，失败返回-1；
-    int copyLayer(int id);  //复制当前图层的内容到新图层，并且返回新图层的id，当前图层为新的图层。成功返回图层id， 失败返回-1。
+    Node *createLayer(); //返回创建图层的id，发回UI层使用，成功返回从1开始的值，失败返回-1
+    int deleteLayer(Node *id); //删除图层，成功返回1，失败返回-1；
+    int copyLayer(Node *id);  //复制当前图层的内容到新图层，并且返回新图层的id，当前图层为新的图层。成功返回图层id， 失败返回-1。
     int clearLayer(int id);//清空当前图层内容，成功返回1， 失败返回-1；
     int mergeLayer(int id1, int id2, int merge_mode);// 合并图层, 相邻图层，根据alphe混合, 成功返回合并后的id， 失败返回-1
     int swapLayer(int layer1, int layer2);//交换图层位置信息，成功返回1， 失败返回-1；
@@ -97,8 +97,9 @@ public:
     int getBackgroundTexture();//获取背景纹理，成功返回纹理id，失败返回-1；
     int getLayerThumbnailData(int layerid);// 获取图层的缩略图
     int getThumbnailData(); //获取整个截图
-    
-    
+
+private:
+    Node *mCurrentLayer;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
