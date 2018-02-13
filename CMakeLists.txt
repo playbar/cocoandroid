@@ -263,6 +263,41 @@ target_include_directories(cocos2dx_static PRIVATE
 
 #////////////////////
 
+add_library(chipmunk_lib STATIC IMPORTED)
+set_target_properties(chipmunk_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/chipmunk/prebuilt/android/armeabi-v7a/libchipmunk.a)
+
+add_library(jpeg_lib STATIC IMPORTED)
+set_target_properties(jpeg_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/jpeg/prebuilt/android/${ANDROID_ABI}/libjpeg.a)
+
+
+add_library(png_lib STATIC IMPORTED)
+set_target_properties(png_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/png/prebuilt/android/${ANDROID_ABI}/libpng.a)
+
+add_library(bulletCollision_lib STATIC IMPORTED)
+set_target_properties(bulletCollision_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libBulletCollision.a)
+
+add_library(bulletDynamics_lib STATIC IMPORTED)
+set_target_properties(bulletDynamics_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libBulletDynamics.a)
+
+add_library(bulletMultiThreaded_lib STATIC IMPORTED)
+set_target_properties(bulletMultiThreaded_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libBulletMultiThreaded.a)
+
+add_library(linearMath_lib STATIC IMPORTED)
+set_target_properties(linearMath_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libLinearMath.a)
+
+add_library(miniCL_lib STATIC IMPORTED)
+set_target_properties(miniCL_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libMiniCL.a)
+
+
+
  add_library(MyGame SHARED
             libcocos2dx/src/main/cpp/main.cpp
             Classes/AppDelegate.cpp
@@ -285,4 +320,14 @@ target_link_libraries(MyGame
                       android
                       log
                       GLESv2
+                      bulletCollision_lib
+                      bulletDynamics_lib
+                      bulletMultiThreaded_lib
+                      linearMath_lib
+                      miniCL_lib
+                      chipmunk_lib
+                      jpeg_lib
+                      png_lib
+                      z
+                      atomic
                       cocos2dx_static)

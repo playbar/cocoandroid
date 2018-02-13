@@ -24,6 +24,12 @@
 /// @{
 
 /// Point query info struct.
+
+//#ifdef __cplusplus
+//extern "C"
+//{
+//#endif
+
 typedef struct cpPointQueryInfo {
 	/// The nearest shape, NULL if no shape was within range.
 	const cpShape *shape;
@@ -62,14 +68,15 @@ typedef struct cpShapeFilter {
 } cpShapeFilter;
 
 /// Collision filter value for a shape that will collide with anything except CP_SHAPE_FILTER_NONE.
-static const cpShapeFilter CP_SHAPE_FILTER_ALL = {CP_NO_GROUP, CP_ALL_CATEGORIES, CP_ALL_CATEGORIES};
+static const cpShapeFilter CP_SHAPE_FILTER_ALL = {CP_NO_GROUP, CP_ALL_CATEGORIES,
+												  CP_ALL_CATEGORIES};
 /// Collision filter value for a shape that does not collide with anything.
-static const cpShapeFilter CP_SHAPE_FILTER_NONE = {CP_NO_GROUP, ~CP_ALL_CATEGORIES, ~CP_ALL_CATEGORIES};
+static const cpShapeFilter CP_SHAPE_FILTER_NONE = {CP_NO_GROUP, ~CP_ALL_CATEGORIES,
+												   ~CP_ALL_CATEGORIES};
 
 /// Create a new collision filter.
 static inline cpShapeFilter
-cpShapeFilterNew(cpGroup group, cpBitmask categories, cpBitmask mask)
-{
+cpShapeFilterNew(cpGroup group, cpBitmask categories, cpBitmask mask) {
 	cpShapeFilter filter = {group, categories, mask};
 	return filter;
 }
@@ -89,16 +96,17 @@ CP_EXPORT cpBB cpShapeUpdate(cpShape *shape, cpTransform transform);
 CP_EXPORT cpFloat cpShapePointQuery(const cpShape *shape, cpVect p, cpPointQueryInfo *out);
 
 /// Perform a segment query against a shape. @c info must be a pointer to a valid cpSegmentQueryInfo structure.
-CP_EXPORT cpBool cpShapeSegmentQuery(const cpShape *shape, cpVect a, cpVect b, cpFloat radius, cpSegmentQueryInfo *info);
+CP_EXPORT cpBool cpShapeSegmentQuery(const cpShape *shape, cpVect a, cpVect b, cpFloat radius,
+									 cpSegmentQueryInfo *info);
 
 /// Return contact information about two shapes.
 CP_EXPORT cpContactPointSet cpShapesCollide(const cpShape *a, const cpShape *b);
 
 /// The cpSpace this body is added to.
-CP_EXPORT cpSpace* cpShapeGetSpace(const cpShape *shape);
+CP_EXPORT cpSpace *cpShapeGetSpace(const cpShape *shape);
 
 /// The cpBody this shape is connected to.
-CP_EXPORT cpBody* cpShapeGetBody(const cpShape *shape);
+CP_EXPORT cpBody *cpShapeGetBody(const cpShape *shape);
 /// Set the cpBody this shape is connected to.
 /// Can only be used if the shape is not currently added to a space.
 CP_EXPORT void cpShapeSetBody(cpShape *shape, cpBody *body);
@@ -163,11 +171,12 @@ CP_EXPORT void cpShapeSetFilter(cpShape *shape, cpShapeFilter filter);
 /// @defgroup cpCircleShape cpCircleShape
 
 /// Allocate a circle shape.
-CP_EXPORT cpCircleShape* cpCircleShapeAlloc(void);
+CP_EXPORT cpCircleShape *cpCircleShapeAlloc(void);
 /// Initialize a circle shape.
-CP_EXPORT cpCircleShape* cpCircleShapeInit(cpCircleShape *circle, cpBody *body, cpFloat radius, cpVect offset);
+CP_EXPORT cpCircleShape *
+cpCircleShapeInit(cpCircleShape *circle, cpBody *body, cpFloat radius, cpVect offset);
 /// Allocate and initialize a circle shape.
-CP_EXPORT cpShape* cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset);
+CP_EXPORT cpShape *cpCircleShapeNew(cpBody *body, cpFloat radius, cpVect offset);
 
 /// Get the offset of a circle shape.
 CP_EXPORT cpVect cpCircleShapeGetOffset(const cpShape *shape);
@@ -178,11 +187,12 @@ CP_EXPORT cpFloat cpCircleShapeGetRadius(const cpShape *shape);
 /// @defgroup cpSegmentShape cpSegmentShape
 
 /// Allocate a segment shape.
-CP_EXPORT cpSegmentShape* cpSegmentShapeAlloc(void);
+CP_EXPORT cpSegmentShape *cpSegmentShapeAlloc(void);
 /// Initialize a segment shape.
-CP_EXPORT cpSegmentShape* cpSegmentShapeInit(cpSegmentShape *seg, cpBody *body, cpVect a, cpVect b, cpFloat radius);
+CP_EXPORT cpSegmentShape *
+cpSegmentShapeInit(cpSegmentShape *seg, cpBody *body, cpVect a, cpVect b, cpFloat radius);
 /// Allocate and initialize a segment shape.
-CP_EXPORT cpShape* cpSegmentShapeNew(cpBody *body, cpVect a, cpVect b, cpFloat radius);
+CP_EXPORT cpShape *cpSegmentShapeNew(cpBody *body, cpVect a, cpVect b, cpFloat radius);
 
 /// Let Chipmunk know about the geometry of adjacent segments to avoid colliding with endcaps.
 CP_EXPORT void cpSegmentShapeSetNeighbors(cpShape *shape, cpVect prev, cpVect next);
@@ -195,5 +205,9 @@ CP_EXPORT cpVect cpSegmentShapeGetB(const cpShape *shape);
 CP_EXPORT cpVect cpSegmentShapeGetNormal(const cpShape *shape);
 /// Get the first endpoint of a segment shape.
 CP_EXPORT cpFloat cpSegmentShapeGetRadius(const cpShape *shape);
+
+//#ifdef __cplusplus
+//}
+//#endif
 
 /// @}

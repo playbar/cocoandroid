@@ -97,6 +97,7 @@ extern "C"
 #include "base/pvr.h"
 #include "base/TGAlib.h"
 
+
 #if CC_USE_WEBP
 #include "decode.h"
 #endif // CC_USE_WEBP
