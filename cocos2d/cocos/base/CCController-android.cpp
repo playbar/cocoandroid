@@ -30,7 +30,7 @@
 #include <functional>
 #include "base/ccMacros.h"
 #include "base/CCDirector.h"
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #include "base/CCEventController.h"
 
 NS_CC_BEGIN

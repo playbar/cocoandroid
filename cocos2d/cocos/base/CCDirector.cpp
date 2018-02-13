@@ -69,7 +69,7 @@ THE SOFTWARE.
 #endif
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
+#include "Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.h"
 #endif
 
 /**

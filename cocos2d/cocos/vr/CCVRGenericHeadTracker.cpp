@@ -38,7 +38,7 @@
 #import <CoreMotion/CoreMotion.h>
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <jni.h>
-#include "platform/android/jni/JniHelper.h"
+#include "JniHelper.h"
 #endif
 
 NS_CC_BEGIN

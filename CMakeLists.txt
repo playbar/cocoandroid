@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -frtti -DCC_ENABLE_CHIPMUNK_INTEGRATION=1 -std=c++11 -fsigned-char -Wno-extern-c-compat")
 
-
+add_definitions(-DUSE_FILE32API)
 
 add_library(cocos2dx_static STATIC
             cocos2d/cocos/cocos2d.cpp
@@ -221,10 +221,26 @@ add_library(cocos2dx_static STATIC
             cocos2d/external/poly2tri/sweep/sweep_context.cc
             cocos2d/external/poly2tri/sweep/sweep.cc
             cocos2d/external/clipper/clipper.cpp
+            cocos2d/cocos/platform/android/CCApplication-android.cpp
+            cocos2d/cocos/platform/android/CCCommon-android.cpp
+            cocos2d/cocos/platform/android/CCDevice-android.cpp
+            cocos2d/cocos/platform/android/CCGLViewImpl-android.cpp
+            cocos2d/cocos/platform/android/CCFileUtils-android.cpp
+            cocos2d/cocos/platform/android/javaactivity-android.cpp
+            cocos2d/cocos/platform/android/CCEnhanceAPI-android.cpp
+            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxAccelerometer.cpp
+            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxBitmap.cpp
+            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxHelper.cpp
+            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxRenderer.cpp
+            cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.cpp
+            cocos2d/cocos/platform/android/jni/JniHelper.cpp
+            cocos2d/cocos/platform/android/jni/TouchesJni.cpp
          )
 
 target_include_directories(cocos2dx_static PRIVATE
                           ${CMAKE_CURRENT_SOURCE_DIR}/libcocos2dx/src/main/cpp
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/platform
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/platform/android/jni
                           ${CMAKE_CURRENT_SOURCE_DIR}/
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/
                           ${CMAKE_CURRENT_SOURCE_DIR}/
@@ -232,11 +248,17 @@ target_include_directories(cocos2dx_static PRIVATE
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/tinyxml2
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/unzip
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/ConvertUTF
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/xxhash
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/include
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/include/bullet
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/freetype2/include/android/freetype2
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/edtaa3func
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/chipmunk/include
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/png/include/android
                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/tiff/include/android
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/jpeg/include/android
+                          ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/webp/include/android
                           ${ANDROID_NDK}/sources/third_party/shaderc/include)
 
 #////////////////////
@@ -251,6 +273,7 @@ target_include_directories(cocos2dx_static PRIVATE
 
  target_include_directories(MyGame PRIVATE
                            ${CMAKE_CURRENT_SOURCE_DIR}
+                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/platform/android/jni
                            ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/
                            ${CMAKE_CURRENT_SOURCE_DIR}/Classes
                            ${CMAKE_CURRENT_SOURCE_DIR}/libcocos2dx/src/main/cpp
@@ -261,4 +284,5 @@ target_include_directories(cocos2dx_static PRIVATE
 target_link_libraries(MyGame
                       android
                       log
+                      GLESv2
                       cocos2dx_static)
