@@ -1039,7 +1039,8 @@ void EngineDataManager::notifyGameStatusIfCpuOrGpuLevelChanged()
     int totalNodeCount = Node::getAttachedNodeCount();
     int totalParticleCount = getTotalParticleCount();
     int totalActionCount = director->getActionManager()->getNumberOfRunningActions();
-    int totalPlayingAudioCount = experimental::AudioEngine::getPlayingAudioCount();
+    // todo audio
+    int totalPlayingAudioCount = 1; //experimental::AudioEngine::getPlayingAudioCount();
 
     {
         float cpuLevelNode = toCpuLevelPerFactor(totalNodeCount, cbCpuLevelNode);
@@ -1634,7 +1635,8 @@ void EngineDataManager::nativeOnChangeMuteEnabled(JNIEnv* env, jobject thiz, jbo
         return;
 
     LOGD("nativeOnChangeMuteEnabled, isMuteEnabled: %d", isMuteEnabled);
-    cocos2d::experimental::AudioEngine::setEnabled(!isMuteEnabled);
+    //todo audio
+    //cocos2d::experimental::AudioEngine::setEnabled(!isMuteEnabled);
 }
 
 } // namespace cocos2d {

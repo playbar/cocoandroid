@@ -16,7 +16,7 @@ android {
         }
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_PLATFORM=android-24',
+                arguments '-DANDROID_PLATFORM=android-19',
                         '-DANDROID_TOOLCHAIN=clang',
                         "-DANDROID_STL=${stlType}",
                         '-DSAMPLE_NAME=' + project.getName()

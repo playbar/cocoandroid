@@ -235,6 +235,53 @@ add_library(cocos2dx_static STATIC
             cocos2d/cocos/platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxEngineDataManager.cpp
             cocos2d/cocos/platform/android/jni/JniHelper.cpp
             cocos2d/cocos/platform/android/jni/TouchesJni.cpp
+            cocos2d/external/recast/DebugUtils/DebugDraw.cpp
+            cocos2d/external/recast/DebugUtils/DetourDebugDraw.cpp
+            cocos2d/external/recast/Detour/DetourAlloc.cpp
+            cocos2d/external/recast/Detour/DetourCommon.cpp
+            cocos2d/external/recast/Detour/DetourNavMesh.cpp
+            cocos2d/external/recast/Detour/DetourNavMeshBuilder.cpp
+            cocos2d/external/recast/Detour/DetourNavMeshQuery.cpp
+            cocos2d/external/recast/Detour/DetourNode.cpp
+            cocos2d/external/recast/DetourCrowd/DetourCrowd.cpp
+            cocos2d/external/recast/DetourCrowd/DetourLocalBoundary.cpp
+            cocos2d/external/recast/DetourCrowd/DetourObstacleAvoidance.cpp
+            cocos2d/external/recast/DetourCrowd/DetourPathCorridor.cpp
+            cocos2d/external/recast/DetourCrowd/DetourPathQueue.cpp
+            cocos2d/external/recast/DetourCrowd/DetourProximityGrid.cpp
+            cocos2d/external/recast/DetourTileCache/DetourTileCache.cpp
+            cocos2d/external/recast/DetourTileCache/DetourTileCacheBuilder.cpp
+            cocos2d/external/recast/fastlz/fastlz.c
+            #cocos2d/cocos/audio/android/ccdandroidUtils.cpp
+            #cocos2d/cocos/audio/android/cddSimpleAudioEngine.cpp
+            #cocos2d/cocos/audio/android/jni/cddandroidAndroidJavaEngine.cpp
+            #cocos2d/cocos/audio/android/AudioEngine-inl.cpp
+            #cocos2d/cocos/audio//AudioEngine.cpp
+            #cocos2d/cocos/audio/android/CCThreadPool.cpp
+            #cocos2d/cocos/audio/android/AssetFd.cpp
+            #cocos2d/cocos/audio/android/AudioDecoder.cpp
+            #cocos2d/cocos/audio/android/AudioDecoderProvider.cpp
+            #cocos2d/cocos/audio/android/AudioDecoderSLES.cpp
+            #cocos2d/cocos/audio/android/AudioDecoderOgg.cpp
+            #cocos2d/cocos/audio/android/AudioDecoderMp3.cpp
+            #cocos2d/cocos/audio/android/AudioDecoderWav.cpp
+            #cocos2d/cocos/audio/android/AudioPlayerProvider.cpp
+            #cocos2d/cocos/audio/android/AudioResampler.cpp
+            #cocos2d/cocos/audio/android/AudioResamplerCubic.cpp
+            #cocos2d/cocos/audio/android/PcmBufferProvider.cpp
+            #cocos2d/cocos/audio/android/PcmAudioPlayer.cpp
+            #cocos2d/cocos/audio/android/UrlAudioPlayer.cpp
+            #cocos2d/cocos/audio/android/PcmData.cpp
+            #cocos2d/cocos/audio/android/AudioMixerController.cpp
+            #cocos2d/cocos/audio/android/AudioMixer.cpp
+            #cocos2d/cocos/audio/android/PcmAudioService.cpp
+            #cocos2d/cocos/audio/android/Track.cpp
+            #cocos2d/cocos/audio/android/audio_utils/format.c
+            #cocos2d/cocos/audio/android/audio_utils/minifloat.cpp
+            #cocos2d/cocos/audio/android/audio_utils/primitives.c
+            #cocos2d/cocos/audio/android/utils/Utils.cpp
+            #cocos2d/cocos/audio/android/mp3reader.cpp
+            #cocos2d/cocos/audio/android/tinysndfile.cpp
          )
 
 target_include_directories(cocos2dx_static PRIVATE
@@ -296,10 +343,21 @@ add_library(miniCL_lib STATIC IMPORTED)
 set_target_properties(miniCL_lib PROPERTIES IMPORTED_LOCATION
                       ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/bullet/prebuilt/android/${ANDROID_ABI}/libMiniCL.a)
 
+add_library(freetype_lib STATIC IMPORTED)
+set_target_properties(freetype_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/freetype2/prebuilt/android/${ANDROID_ABI}/libfreetype.a)
 
+add_library(webp_lib STATIC IMPORTED)
+set_target_properties(webp_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/webp/prebuilt/android/${ANDROID_ABI}/libwebp.a)
+
+add_library(tiff_lib STATIC IMPORTED)
+set_target_properties(tiff_lib PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external/tiff/prebuilt/android/${ANDROID_ABI}/libtiff.a)
 
  add_library(MyGame SHARED
             libcocos2dx/src/main/cpp/main.cpp
+            libcocos2dx/src/main/cpp/cpu-features.c
             Classes/AppDelegate.cpp
             Classes/HaowanLibScene.cpp
             Classes/Caretaker.cpp
@@ -319,15 +377,21 @@ set_target_properties(miniCL_lib PROPERTIES IMPORTED_LOCATION
 target_link_libraries(MyGame
                       android
                       log
+                      EGL
                       GLESv2
-                      bulletCollision_lib
+                      OpenSLES
+                      z
+                      atomic
+                      cocos2dx_static
                       bulletDynamics_lib
+                      bulletCollision_lib
                       bulletMultiThreaded_lib
                       linearMath_lib
                       miniCL_lib
                       chipmunk_lib
                       jpeg_lib
                       png_lib
-                      z
-                      atomic
-                      cocos2dx_static)
+                      freetype_lib
+                      webp_lib
+                      tiff_lib
+                      )
