@@ -44,6 +44,8 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "Caretaker.h"
+
 using namespace cocos2d;
 
 class HaowanLibScene : public cocos2d::Scene
@@ -103,6 +105,7 @@ public:
 
 private:
     Node *mCurrentLayer;
+    Caretaker mCaretake;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

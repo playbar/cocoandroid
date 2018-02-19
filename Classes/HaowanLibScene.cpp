@@ -1,6 +1,7 @@
 #include "HaowanLibScene.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
+#include "coclog.h"
 
 USING_NS_CC;
 
@@ -43,10 +44,10 @@ void HaowanLibScene::createMenu()
 
     // Events
     MenuItemFont::setFontName("fonts/arial.ttf");
-    MenuItemFont::setFontSize(20);
+    MenuItemFont::setFontSize(10);
     // Bugs Item
-    auto item6 = MenuItemFont::create("Bugs", CC_CALLBACK_1(HaowanLibScene::menuCallback, this));
-    item6->setPosition( origin.x + 20., origin.y + 100);
+    auto item6 = MenuItemFont::create("Create", CC_CALLBACK_1(HaowanLibScene::menuCallback, this));
+    item6->setPosition( origin.x + 10., origin.y + 10);
     // create menu, it's an autorelease object
     auto menu = Menu::create(item6, closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
@@ -55,7 +56,7 @@ void HaowanLibScene::createMenu()
 
 void HaowanLibScene::menuCallback(Ref *pSender)
 {
-
+    LOGE("Fun:%s", __FUNCTION__);
 }
 
 // on "init" you need to initialize your instance
