@@ -20,8 +20,8 @@ static void problemLoading(const char* filename)
 
 void HaowanLibScene::createMenu()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     // add a "close" icon to exit the progress. it's an autorelease object
     auto closeItem = MenuItemImage::create(
@@ -46,42 +46,44 @@ void HaowanLibScene::createMenu()
     MenuItemFont::setFontName("fonts/arial.ttf");
     MenuItemFont::setFontSize(10);
     // Bugs Item
-    auto item6 = MenuItemFont::create("Create", CC_CALLBACK_1(HaowanLibScene::menuCallback, this));
-    item6->setPosition( origin.x + 10., origin.y + 10);
+    auto createMenu = MenuItemFont::create("Create", CC_CALLBACK_1(HaowanLibScene::menuCreateCallback, this));
+    createMenu->setPosition( origin.x + 20., origin.y + 20);
+
+    auto deleteMenu = MenuItemFont::create("Delete", CC_CALLBACK_1(HaowanLibScene::menuDeleteCallback, this));
+    deleteMenu->setPosition(origin.x + 20, origin.y + 10);
+
+    auto drawTestMenu = MenuItemFont::create("Test", CC_CALLBACK_1(HaowanLibScene::menuDrawTestCallback, this));
+    drawTestMenu->setPosition( origin.x + 20., origin.y + 100);
+
     // create menu, it's an autorelease object
-    auto menu = Menu::create(item6, closeItem, NULL);
+    auto menu = Menu::create(createMenu, deleteMenu, drawTestMenu, closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+
+
+
+
 }
 
-void HaowanLibScene::menuCallback(Ref *pSender)
+void HaowanLibScene::menuCreateCallback(Ref *pSender)
+{
+
+    LOGE("Fun:%s", __FUNCTION__);
+    createLayer();
+
+}
+
+void HaowanLibScene::menuDeleteCallback(Ref *pSender)
 {
     LOGE("Fun:%s", __FUNCTION__);
+    deleteLayer(mCurrentLayer);
 }
 
-// on "init" you need to initialize your instance
-bool HaowanLibScene::init()
+void HaowanLibScene::menuDrawTestCallback(Ref *pSender)
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !Scene::init() )
-    {
-        return false;
-    }
-
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-
-    createMenu();
-//    return true;
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-
+    LOGE("Fun:%s", __FUNCTION__);
+    if( mCurrentLayer == NULL)
+        return;
     auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
     if (label == nullptr)
     {
@@ -94,8 +96,35 @@ bool HaowanLibScene::init()
                                 origin.y + visibleSize.height - label->getContentSize().height));
 
         // add the label as a child to this layer
-        this->addChild(label, 1);
+        mCurrentLayer->addChild(label, 1);
     }
+
+}
+
+// on "init" you need to initialize your instance
+bool HaowanLibScene::init()
+{
+    //////////////////////////////
+    // 1. super init first
+    if ( !Scene::init() )
+    {
+        return false;
+    }
+
+    visibleSize = Director::getInstance()->getVisibleSize();
+    origin = Director::getInstance()->getVisibleOrigin();
+
+    /////////////////////////////
+
+    createMenu();
+//    return true;
+    /////////////////////////////
+    // 3. add your codes below...
+
+    // add a label shows "Hello World"
+    // create and initialize a label
+
+
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
@@ -249,7 +278,7 @@ void HaowanLibScene::menuCloseCallback(Ref* pSender)
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
 
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
 
@@ -264,6 +293,10 @@ Node *HaowanLibScene::createLayer()
 {
     Node *draw = DrawNode::create();
     addChild(draw, 10);
+    DrawBean *db = new DrawBean();
+    db->setLayer(draw);
+    mCaretake.SetState(LAYER_CREATE, db);
+    mCurrentLayer = draw;
     return draw;
 }
 

@@ -13,8 +13,18 @@
 #include <time.h>
 #include <map>
 #include <vector>
+#include <cocos2d/cocos/platform/CCStdC.h>
 
 using namespace std;
+
+NS_CC_BEGIN
+    class Node;
+NS_CC_END
+
+
+#define LAYER_CREATE 800000
+#define LAYER_DELETE 880000
+
 
 struct Point{
     int mx;
@@ -26,8 +36,10 @@ struct Point{
     }
 };
 
+
 class DrawBean{
 public:
+
     DrawBean():mstart(0,0), mend(0, 0){
         mColor = 0xff;
         malpha = 255;
@@ -38,6 +50,16 @@ public:
 
     void addPoint(Point &point){
         mpointList.emplace_back(point);
+    }
+
+    void setLayer(cocos2d::Node *player)
+    {
+        mpNode = player;
+    }
+
+    cocos2d::Node *getLayer()
+    {
+        return mpNode;
     }
 
     int getTextureid() {
@@ -193,7 +215,10 @@ public:
         return value;
     }
 
+
+
 private:
+    cocos2d::Node *mpNode;
     int mColor;//画笔颜色
     int malpha;//画笔透明度
     int msize;//画笔尺寸

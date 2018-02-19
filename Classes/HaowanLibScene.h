@@ -56,7 +56,9 @@ public:
     virtual bool init();
 
     void createMenu();
-    void menuCallback(Ref *pSender);
+    void menuCreateCallback(Ref *pSender);
+    void menuDeleteCallback(Ref *pSender);
+    void menuDrawTestCallback(Ref *pSender);
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -106,6 +108,10 @@ public:
 private:
     Node *mCurrentLayer;
     Caretaker mCaretake;
+
+public: // for test
+    Size visibleSize;
+    Vec2 origin;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
