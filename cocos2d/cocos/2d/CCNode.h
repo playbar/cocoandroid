@@ -582,6 +582,10 @@ public:
      */
     virtual bool isVisible() const;
 
+    virtual void setLock(bool lock);
+
+    virtual bool isLock() const;
+
 
     /**
      * Sets the rotation (angle) of the node in degrees.
@@ -1985,6 +1989,8 @@ protected:
     bool _running;                  ///< is running
 
     bool _visible;                  ///< is this node visible
+
+    bool _block;
 
     bool _ignoreAnchorPointForPosition; ///< true if the Anchor Vec2 will be (0,0) when you position the Node, false otherwise.
                                           ///< Used by Layer and Scene.

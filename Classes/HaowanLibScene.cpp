@@ -314,6 +314,10 @@ int HaowanLibScene::copyLayer(Node * id)
 
 int HaowanLibScene::clearLayer(int id)
 {
+    if(mCurrentLayer != NULL ) {
+        mCurrentLayer->cleanup();
+        return 1;
+    }
     return -1;
 }
 int HaowanLibScene::mergeLayer(int id1, int id2, int merge_mode)
@@ -327,30 +331,54 @@ int HaowanLibScene::swapLayer(int layer1, int layer2)
 
 Node *HaowanLibScene::getCurrentLayer(int id)
 {
-    return NULL;
+    return mCurrentLayer;
 }
 int HaowanLibScene::setOpacity(float opacity)
 {
+    if( mCurrentLayer != NULL )
+    {
+        mCurrentLayer->setOpacity( opacity);
+        return 1;
+    }
     return -1;
 }
 float HaowanLibScene::getOpacity()
 {
+    if( mCurrentLayer != NULL ){
+        return mCurrentLayer->getOpacity();
+    }
     return 0.0f;
 }
 int HaowanLibScene::setVisiable(int id, bool visiable)
 {
+    if( mCurrentLayer != NULL )
+    {
+        mCurrentLayer->setVisible( visiable);
+        return 1;
+    }
     return -1;
 }
 bool HaowanLibScene::getVisiable(int id)
 {
+    if( mCurrentLayer != NULL )
+    {
+        return mCurrentLayer->isVisible();
+    }
     return false;
 }
 int HaowanLibScene::setLock(int id, bool block)
 {
+    if( mCurrentLayer != NULL )
+    {
+        mCurrentLayer->setLock(block);
+        return 1;
+    }
     return -1;
 }
 bool HaowanLibScene::getLock(int id)
 {
+    if( mCurrentLayer != NULL )
+        return mCurrentLayer->isLock();
     return false;
 }
 int HaowanLibScene::setTranslate(float x, float y, float z)
@@ -365,6 +393,7 @@ int HaowanLibScene::setScale(float cx, float cy, float scale)
 //vec3 getScale(); // 获取当前图层的缩放比例，
 int HaowanLibScene::setRotate(float cx, float cy, float angle)
 {
+    mCurrentLayer->setRotation(45);
     return -1;
 }
 //vec3 getRotate(); //获取当前旋转值

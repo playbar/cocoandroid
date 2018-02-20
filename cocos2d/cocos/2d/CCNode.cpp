@@ -97,6 +97,7 @@ Node::Node()
 , _glProgramState(nullptr)
 , _running(false)
 , _visible(true)
+, _block(false)
 , _ignoreAnchorPointForPosition(false)
 , _reorderChildDirty(false)
 , _isTransitionFinished(false)
@@ -612,7 +613,21 @@ void Node::setVisible(bool visible)
     }
 }
 
-const Vec2& Node::getAnchorPointInPoints() const
+    void Node::setLock(bool lock)
+    {
+        if( _block != lock)
+        {
+            _block = lock;
+        }
+    }
+
+    bool Node::isLock() const
+    {
+        return _block;
+    }
+
+
+    const Vec2& Node::getAnchorPointInPoints() const
 {
     return _anchorPointInPoints;
 }
@@ -955,6 +970,9 @@ void Node::addChild(Node* child, int localZOrder, const std::string &name)
 
 void Node::addChildHelper(Node* child, int localZOrder, int tag, const std::string &name, bool setTag)
 {
+    if( _block )
+        return;
+
     auto assertNotSelfChild
         ( [ this, child ]() -> bool
           {
@@ -1038,6 +1056,9 @@ void Node::removeFromParentAndCleanup(bool cleanup)
 */
 void Node::removeChild(Node* child, bool cleanup /* = true */)
 {
+    if( _block )
+        return;
+
     // explicit nil handling
     if (_children.empty())
     {
