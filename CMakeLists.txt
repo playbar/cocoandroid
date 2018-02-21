@@ -384,7 +384,7 @@ set_target_properties(tiff_lib PROPERTIES IMPORTED_LOCATION
             libcocos2dx/src/main/cpp/JniHelper.cpp
             libcocos2dx/src/main/cpp/TouchesJni.cpp
             Classes/AppDelegate.cpp
-            Classes/HaowanLibScene.cpp
+            Classes/LayerManager.cpp
             Classes/Caretaker.cpp
             Classes/VisibleRect.cpp
             )

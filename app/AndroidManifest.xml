@@ -13,6 +13,7 @@
         android:icon="@mipmap/ic_launcher">
         
         <!-- Tell Cocos2dxActivity the name of our .so -->
+        <!--android:screenOrientation="portrait"-->
         <meta-data android:name="android.app.lib_name"
                    android:value="MyGame" />
 

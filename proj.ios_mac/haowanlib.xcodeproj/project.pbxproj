@@ -33,7 +33,7 @@
 		4ACCD15420305AC600B73D1E /* Caretaker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ACCD15120305AC600B73D1E /* Caretaker.cpp */; };
 		4ACCD15D203066CD00B73D1E /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ACCD15B203066CD00B73D1E /* VisibleRect.cpp */; };
 		4ACCD15E203066CD00B73D1E /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ACCD15B203066CD00B73D1E /* VisibleRect.cpp */; };
-		4ACCD163203185C000B73D1E /* HaowanLibScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ACCD162203185C000B73D1E /* HaowanLibScene.cpp */; };
+		4ACCD163203185C000B73D1E /* LayerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ACCD162203185C000B73D1E /* LayerManager.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10517EB98FF00D1A890 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 503AE10317EB98FF00D1A890 /* main.cpp */; };
 		503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503AE11A17EB9C5A00D1A890 /* IOKit.framework */; };
@@ -126,8 +126,8 @@
 		4ACCD15620305AF900B73D1E /* Caretaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Caretaker.h; sourceTree = "<group>"; };
 		4ACCD15B203066CD00B73D1E /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleRect.cpp; sourceTree = "<group>"; };
 		4ACCD15C203066CD00B73D1E /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleRect.h; sourceTree = "<group>"; };
-		4ACCD161203185C000B73D1E /* HaowanLibScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaowanLibScene.h; sourceTree = "<group>"; };
-		4ACCD162203185C000B73D1E /* HaowanLibScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HaowanLibScene.cpp; sourceTree = "<group>"; };
+		4ACCD161203185C000B73D1E /* LayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerManager.h; sourceTree = "<group>"; };
+		4ACCD162203185C000B73D1E /* LayerManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayerManager.cpp; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE10317EB98FF00D1A890 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = mac/main.cpp; sourceTree = "<group>"; };
@@ -288,8 +288,8 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4ACCD162203185C000B73D1E /* HaowanLibScene.cpp */,
-				4ACCD161203185C000B73D1E /* HaowanLibScene.h */,
+				4ACCD162203185C000B73D1E /* LayerManager.cpp */,
+				4ACCD161203185C000B73D1E /* LayerManager.h */,
 				4ACCD15B203066CD00B73D1E /* VisibleRect.cpp */,
 				4ACCD15C203066CD00B73D1E /* VisibleRect.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -455,7 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ACCD15320305AC600B73D1E /* Caretaker.cpp in Sources */,
-				4ACCD163203185C000B73D1E /* HaowanLibScene.cpp in Sources */,
+				4ACCD163203185C000B73D1E /* LayerManager.cpp in Sources */,
 				1AF87B781F6F77F7007BE51C /* AppController.mm in Sources */,
 				1AF87B8B1F6F782A007BE51C /* RootViewController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,

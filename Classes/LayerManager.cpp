@@ -1,13 +1,13 @@
-#include "HaowanLibScene.h"
+#include "LayerManager.h"
 #include "SimpleAudioEngine.h"
 #include "VisibleRect.h"
 #include "coclog.h"
 
 USING_NS_CC;
 
-Scene* HaowanLibScene::createScene()
+Scene* LayerManager::createScene()
 {
-    return HaowanLibScene::create();
+    return LayerManager::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -18,7 +18,7 @@ static void problemLoading(const char* filename)
 }
 
 
-void HaowanLibScene::createMenu()
+void LayerManager::createMenu()
 {
 //    auto visibleSize = Director::getInstance()->getVisibleSize();
 //    Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -27,7 +27,7 @@ void HaowanLibScene::createMenu()
     auto closeItem = MenuItemImage::create(
             "CloseNormal.png",
             "CloseSelected.png",
-            CC_CALLBACK_1(HaowanLibScene::menuCloseCallback, this));
+            CC_CALLBACK_1(LayerManager::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -46,17 +46,24 @@ void HaowanLibScene::createMenu()
     MenuItemFont::setFontName("fonts/arial.ttf");
     MenuItemFont::setFontSize(10);
     // Bugs Item
-    auto createMenu = MenuItemFont::create("Create", CC_CALLBACK_1(HaowanLibScene::menuCreateCallback, this));
+    auto createMenu = MenuItemFont::create("Create", CC_CALLBACK_1(LayerManager::menuCreateCallback, this));
     createMenu->setPosition( origin.x + 20., origin.y + 20);
 
-    auto deleteMenu = MenuItemFont::create("Delete", CC_CALLBACK_1(HaowanLibScene::menuDeleteCallback, this));
+    auto deleteMenu = MenuItemFont::create("Delete", CC_CALLBACK_1(LayerManager::menuDeleteCallback, this));
     deleteMenu->setPosition(origin.x + 20, origin.y + 10);
 
-    auto drawTestMenu = MenuItemFont::create("Test", CC_CALLBACK_1(HaowanLibScene::menuDrawTestCallback, this));
+    auto drawTestMenu = MenuItemFont::create("Test", CC_CALLBACK_1(LayerManager::menuDrawTestCallback, this));
     drawTestMenu->setPosition( origin.x + 20., origin.y + 100);
 
+    auto rotaMenu = MenuItemFont::create("Rota", CC_CALLBACK_1(LayerManager::menuRotaCallback, this));
+    rotaMenu->setPosition( origin.x + 20., origin.y + 80);
+
+
+    auto translateMenu = MenuItemFont::create("translate", CC_CALLBACK_1(LayerManager::menuTranslateCallback, this));
+    translateMenu->setPosition( origin.x + 20., origin.y + 60);
+
     // create menu, it's an autorelease object
-    auto menu = Menu::create(createMenu, deleteMenu, drawTestMenu, closeItem, NULL);
+    auto menu = Menu::create(createMenu, deleteMenu, drawTestMenu, rotaMenu, translateMenu,closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
@@ -65,7 +72,7 @@ void HaowanLibScene::createMenu()
 
 }
 
-void HaowanLibScene::menuCreateCallback(Ref *pSender)
+void LayerManager::menuCreateCallback(Ref *pSender)
 {
 
     LOGE("Fun:%s", __FUNCTION__);
@@ -73,13 +80,13 @@ void HaowanLibScene::menuCreateCallback(Ref *pSender)
 
 }
 
-void HaowanLibScene::menuDeleteCallback(Ref *pSender)
+void LayerManager::menuDeleteCallback(Ref *pSender)
 {
     LOGE("Fun:%s", __FUNCTION__);
     deleteLayer(mCurrentLayer);
 }
 
-void HaowanLibScene::menuDrawTestCallback(Ref *pSender)
+void LayerManager::menuDrawTestCallback(Ref *pSender)
 {
     LOGE("Fun:%s", __FUNCTION__);
     if( mCurrentLayer == NULL)
@@ -91,9 +98,10 @@ void HaowanLibScene::menuDrawTestCallback(Ref *pSender)
     }
     else
     {
+        float fx = 100; //origin.x + visibleSize.width/2;
+        float fy = 10; //origin.y + visibleSize.height - label->getContentSize().height;
         // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+        label->setPosition(fx, fy);
 
         // add the label as a child to this layer
         mCurrentLayer->addChild(label, 1);
@@ -101,8 +109,27 @@ void HaowanLibScene::menuDrawTestCallback(Ref *pSender)
 
 }
 
+void LayerManager::menuRotaCallback(Ref *pSender)
+{
+    LOGE("Fun:%s", __FUNCTION__);
+    if( mCurrentLayer == NULL)
+        return;
+
+    setRotate(15.0, 0, 0);
+
+}
+
+void LayerManager::menuTranslateCallback(Ref *pSender)
+{
+    LOGE("Fun:%s", __FUNCTION__);
+    if( mCurrentLayer == NULL)
+        return;
+    setTranslate(100, 100, 0);
+}
+
+
 // on "init" you need to initialize your instance
-bool HaowanLibScene::init()
+bool LayerManager::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -140,44 +167,51 @@ bool HaowanLibScene::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
     }
-    
+
+//    drawTest();
+
+    return true;
+}
+
+void LayerManager::drawTest()
+{
     ////////////////
-     auto s = Director::getInstance()->getWinSize();
-    
+    auto s = Director::getInstance()->getWinSize();
+
     auto draw = DrawNode::create();
     addChild(draw, 10);
     mCurrentLayer = draw;
-    
+
     draw->drawPoint(Vec2(s.width/2-120, s.height/2-120), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     draw->drawPoint(Vec2(s.width/2+120, s.height/2+120), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // draw 4 small points
     Vec2 position[] = { Vec2(60,60), Vec2(70,70), Vec2(60,70), Vec2(70,60) };
     draw->drawPoints( position, 4, 5, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // draw a line
     draw->drawLine(Vec2(0,0), Vec2(s.width, s.height), Color4F(1.0, 0.0, 0.0, 0.5));
-    
+
     // draw a rectangle
     draw->drawRect(Vec2(23,23), Vec2(7,7), Color4F(1,1,0,1));
-    
+
     draw->drawRect(Vec2(15,30), Vec2(30,15), Vec2(15,0), Vec2(0,15), Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // draw a circle
     draw->drawCircle(VisibleRect::center() + Vec2(140,0), 100, CC_DEGREES_TO_RADIANS(90), 50, true, 1.0f, 2.0f, Color4F(1.0, 0.0, 0.0, 0.5));
-    
+
     draw->drawCircle(VisibleRect::center() - Vec2(140,0), 50, CC_DEGREES_TO_RADIANS(90), 30, false, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // Draw some beziers
     draw->drawQuadBezier(Vec2(s.width - 150, s.height - 150), Vec2(s.width - 70, s.height - 10), Vec2(s.width - 10, s.height - 10), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     draw->drawQuadBezier(Vec2(0, s.height), Vec2(s.width/2, s.height/2), Vec2(s.width, s.height), 50, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     draw->drawCubicBezier(VisibleRect::center(), Vec2(VisibleRect::center().x+30,VisibleRect::center().y+50), Vec2(VisibleRect::center().x+60,VisibleRect::center().y-50),VisibleRect::right(),100, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     draw->drawCubicBezier(Vec2(s.width - 250, 40), Vec2(s.width - 70, 100), Vec2(s.width - 30, 250), Vec2(s.width - 10, s.height - 50), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     auto array = PointArray::create(20);
     array->addControlPoint(Vec2(0,0));
     array->addControlPoint(Vec2(80,80));
@@ -187,7 +221,7 @@ bool HaowanLibScene::init()
     array->addControlPoint(Vec2(80,80));
     array->addControlPoint(Vec2(s.width/2, s.height/2));
     draw->drawCardinalSpline(array, 0.5, 50, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     auto array2 = PointArray::create(20);
     array2->addControlPoint(Vec2(s.width / 2, 30));
     array2->addControlPoint(Vec2(s.width  -80, 30));
@@ -195,85 +229,85 @@ bool HaowanLibScene::init()
     array2->addControlPoint(Vec2(s.width / 2, s.height - 80));
     array2->addControlPoint(Vec2(s.width / 2, 30));
     draw->drawCatmullRom(array2, 50, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     // open random color poly
     Vec2 vertices[] = { Vec2(0,0), Vec2(50,50), Vec2(100,50), Vec2(100,100), Vec2(50,100) };
     draw->drawPoly( vertices, 5, false, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // closed random color poly
     Vec2 vertices2[] = { Vec2(30,130), Vec2(30,230), Vec2(50,200) };
     draw->drawPoly( vertices2, 3, true, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
-    
+
     // Draw 10 circles
     for( int i=0; i < 10; i++)
     {
         draw->drawDot(Vec2(s.width/2, s.height/2), 10*(10-i), Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
     }
-    
+
     auto draw2 = DrawNode::create();
     addChild(draw2, 10);
     // Draw polygons
     Vec2 points[] = { Vec2(s.height/4,0), Vec2(s.width,s.height/5), Vec2(s.width/3*2,s.height) };
     draw2->drawPolygon(points, sizeof(points)/sizeof(points[0]), Color4F(1,0,0,0.5), 4, Color4F(0,0,1,0.5));
-    
+
     // star poly (triggers buggs)
     {
         const float o=80;
         const float w=20;
         const float h=50;
         Vec2 star[] = {
-            Vec2(o+w,o-h), Vec2(o+w*2, o),                        // lower spike
-            Vec2(o + w*2 + h, o+w ), Vec2(o + w*2, o+w*2),        // right spike
-            //              {o +w, o+w*2+h}, {o,o+w*2},                 // top spike
-            //              {o -h, o+w}, {o,o},                         // left spike
+                Vec2(o+w,o-h), Vec2(o+w*2, o),                        // lower spike
+                Vec2(o + w*2 + h, o+w ), Vec2(o + w*2, o+w*2),        // right spike
+                //              {o +w, o+w*2+h}, {o,o+w*2},                 // top spike
+                //              {o -h, o+w}, {o,o},                         // left spike
         };
-        
+
         draw2->drawPolygon(star, sizeof(star)/sizeof(star[0]), Color4F(1,0,0,0.5), 1, Color4F(0,0,1,1));
     }
-    
+
     // star poly (doesn't trigger bug... order is important un tesselation is supported.
     {
         const float o=180;
         const float w=20;
         const float h=50;
         Vec2 star[] = {
-            Vec2(o,o), Vec2(o+w,o-h), Vec2(o+w*2, o),        // lower spike
-            Vec2(o + w*2 + h, o+w ), Vec2(o + w*2, o+w*2),    // right spike
-            Vec2(o +w, o+w*2+h), Vec2(o,o+w*2),               // top spike
-            Vec2(o -h, o+w),                                     // left spike
+                Vec2(o,o), Vec2(o+w,o-h), Vec2(o+w*2, o),        // lower spike
+                Vec2(o + w*2 + h, o+w ), Vec2(o + w*2, o+w*2),    // right spike
+                Vec2(o +w, o+w*2+h), Vec2(o,o+w*2),               // top spike
+                Vec2(o -h, o+w),                                     // left spike
         };
-        
+
         draw2->drawPolygon(star, sizeof(star)/sizeof(star[0]), Color4F(1,0,0,0.5), 1, Color4F(0,0,1,1));
     }
-    
+
     //draw a solid polygon
     Vec2 vertices3[] = {Vec2(60,160), Vec2(70,190), Vec2(100,190), Vec2(90,160)};
     draw2->drawSolidPoly( vertices3, 4, Color4F(1,1,0,1) );
-    
+
     //draw a solid rectangle
     draw2->drawSolidRect(Vec2(10,10), Vec2(20,20), Color4F(1,1,0,1));
-    
+
     //draw a solid circle
     draw2->drawSolidCircle( VisibleRect::center() + Vec2(140,0), 40, CC_DEGREES_TO_RADIANS(90), 50, 2.0f, 2.0f, Color4F(0.0, 1.0, 0.0, 1.0));
-    
+
     // Draw segment
     draw2->drawSegment(Vec2(20,s.height), Vec2(20,s.height/2), 10, Color4F(0, 1, 0, 1));
-    
+
     draw2->drawSegment(Vec2(10,s.height/2), Vec2(s.width/2, s.height/2), 40, Color4F(1, 0, 1, 0.5));
-    
+
     // Draw triangle
     draw2->drawTriangle(Vec2(10, 10), Vec2(70, 30), Vec2(100, 140), Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 0.5));
-    
+
     for (int i = 0; i < 100; i++) {
         draw2->drawPoint(Vec2(i*7, 5), (float)i/5+1, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
     }
-    
+
     draw->setVisible(false);
-    return true;
+    return;
 }
 
 
-void HaowanLibScene::menuCloseCallback(Ref* pSender)
+void LayerManager::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
@@ -289,7 +323,7 @@ void HaowanLibScene::menuCloseCallback(Ref* pSender)
 }
 
 
-Node *HaowanLibScene::createLayer()
+Node *LayerManager::createLayer()
 {
     Node *draw = DrawNode::create();
     addChild(draw, 10);
@@ -300,19 +334,19 @@ Node *HaowanLibScene::createLayer()
     return draw;
 }
 
-int HaowanLibScene::deleteLayer(Node *id)
+int LayerManager::deleteLayer(Node *id)
 {
     removeChild(id);
     return -1;
 }
-int HaowanLibScene::copyLayer(Node * id)
+int LayerManager::copyLayer(Node * id)
 {
     Node *player = DrawNode::create();
 
     return -1;
 }
 
-int HaowanLibScene::clearLayer(int id)
+int LayerManager::clearLayer(int id)
 {
     if(mCurrentLayer != NULL ) {
         mCurrentLayer->cleanup();
@@ -320,20 +354,20 @@ int HaowanLibScene::clearLayer(int id)
     }
     return -1;
 }
-int HaowanLibScene::mergeLayer(int id1, int id2, int merge_mode)
+int LayerManager::mergeLayer(Node *id1, Node *id2, int merge_mode)
 {
     return -1;
 }
-int HaowanLibScene::swapLayer(int layer1, int layer2)
+int LayerManager::swapLayer(int layer1, int layer2)
 {
     return -1;
 }
 
-Node *HaowanLibScene::getCurrentLayer(int id)
+Node *LayerManager::getCurrentLayer(int id)
 {
     return mCurrentLayer;
 }
-int HaowanLibScene::setOpacity(float opacity)
+int LayerManager::setOpacity(float opacity)
 {
     if( mCurrentLayer != NULL )
     {
@@ -342,14 +376,14 @@ int HaowanLibScene::setOpacity(float opacity)
     }
     return -1;
 }
-float HaowanLibScene::getOpacity()
+float LayerManager::getOpacity()
 {
     if( mCurrentLayer != NULL ){
         return mCurrentLayer->getOpacity();
     }
     return 0.0f;
 }
-int HaowanLibScene::setVisiable(int id, bool visiable)
+int LayerManager::setVisiable(int id, bool visiable)
 {
     if( mCurrentLayer != NULL )
     {
@@ -358,7 +392,7 @@ int HaowanLibScene::setVisiable(int id, bool visiable)
     }
     return -1;
 }
-bool HaowanLibScene::getVisiable(int id)
+bool LayerManager::getVisiable(int id)
 {
     if( mCurrentLayer != NULL )
     {
@@ -366,7 +400,7 @@ bool HaowanLibScene::getVisiable(int id)
     }
     return false;
 }
-int HaowanLibScene::setLock(int id, bool block)
+int LayerManager::setLock(int id, bool block)
 {
     if( mCurrentLayer != NULL )
     {
@@ -375,97 +409,111 @@ int HaowanLibScene::setLock(int id, bool block)
     }
     return -1;
 }
-bool HaowanLibScene::getLock(int id)
+bool LayerManager::getLock(int id)
 {
     if( mCurrentLayer != NULL )
         return mCurrentLayer->isLock();
     return false;
 }
-int HaowanLibScene::setTranslate(float x, float y, float z)
+int LayerManager::setTranslate(float x, float y, float z)
 {
+    if( mCurrentLayer != NULL )
+    {
+        mCurrentLayer->setPosition( x, y );
+        return 1;
+    }
     return -1;
 }
 //vec3 getTranslate();//当前图层，获取当前图层的位置，返回图层所在的位置
-int HaowanLibScene::setScale(float cx, float cy, float scale)
+int LayerManager::setScale(float fx, float fy, float scale)
 {
+    if(mCurrentLayer != NULL )
+    {
+        mCurrentLayer->setScale(fx, fy);
+        return 1;
+    }
     return -1;
 }
 //vec3 getScale(); // 获取当前图层的缩放比例，
-int HaowanLibScene::setRotate(float cx, float cy, float angle)
+int LayerManager::setRotate(float cx, float cy, float angle)
 {
-    mCurrentLayer->setRotation(45);
+    if( mCurrentLayer != NULL ) {
+        mCurrentLayer->setRotation(cx);
+        return 1;
+    }
     return -1;
 }
 //vec3 getRotate(); //获取当前旋转值
 ////////////////////////
-int HaowanLibScene::setAllTranslate(float x, float y, float z)
+int LayerManager::setAllTranslate(float x, float y, float z)
 {
+
     return -1;
 }
 
-cocos2d::Vec3 HaowanLibScene::getAllTranslate()
+cocos2d::Vec3 LayerManager::getAllTranslate()
 {
     return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
 }
 
-int HaowanLibScene::setAllScale(float cx, float cy, float scale)
+int LayerManager::setAllScale(float cx, float cy, float scale)
 {
     return -1;
 }
-cocos2d::Vec3 HaowanLibScene::getAllScale()
+cocos2d::Vec3 LayerManager::getAllScale()
 {
     return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
 }
 
-int HaowanLibScene::setAllRotate(float cx, float cy, float angle)
+int LayerManager::setAllRotate(float cx, float cy, float angle)
 {
     return -1;
 }
-cocos2d::Vec3 HaowanLibScene::getAllRotate()
+cocos2d::Vec3 LayerManager::getAllRotate()
 {
     return cocos2d::Vec3(0.0f, 0.0f, 0.0f);
 }
 /////////////
-int HaowanLibScene::setBlendMode(int mode)
+int LayerManager::setBlendMode(int mode)
 {
     return -1;
 }
-int HaowanLibScene::getBlendMode()
+int LayerManager::getBlendMode()
 {
     return -1;
 }
-int HaowanLibScene::setBackgroundColor(float r, float g, float b, float a)
+int LayerManager::setBackgroundColor(float r, float g, float b, float a)
 {
     return -1;
 }
-Color4B HaowanLibScene::getBackgroundColor()
+Color4B LayerManager::getBackgroundColor()
 {
     return Color4B();
 }
 
-int HaowanLibScene::setBackgroundTexture(int texid)
+int LayerManager::setBackgroundTexture(int texid)
 {
     return -1;
 }
-int HaowanLibScene::setBackgroundTexture(char *pdata)
+int LayerManager::setBackgroundTexture(char *pdata)
 {
     return -1;
 }
-int HaowanLibScene::setBackgroundTexture(std::string texid)
+int LayerManager::setBackgroundTexture(std::string texid)
 {
     return -1;
 }
-int HaowanLibScene::getBackgroundTexture()
-{
-    return -1;
-}
-
-int HaowanLibScene::getLayerThumbnailData(int layerid)
+int LayerManager::getBackgroundTexture()
 {
     return -1;
 }
 
-int HaowanLibScene::getThumbnailData()
+int LayerManager::getLayerThumbnailData(int layerid)
+{
+    return -1;
+}
+
+int LayerManager::getThumbnailData()
 {
     return -1;
 }
