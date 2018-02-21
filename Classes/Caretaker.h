@@ -13,7 +13,7 @@
 #include <time.h>
 #include <map>
 #include <vector>
-#include <cocos2d/cocos/platform/CCStdC.h>
+#include <platform/CCStdC.h>
 
 using namespace std;
 
