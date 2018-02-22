@@ -2238,6 +2238,10 @@ int Node::getAttachedNodeCount()
     return __attachedNodeCount;
 }
 
+    Node *Node::clone()
+    {
+    }
+
 // MARK: Deprecated
 
 __NodeRGBA::__NodeRGBA()

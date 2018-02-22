@@ -133,7 +133,8 @@ public:
      */
     static int getAttachedNodeCount();
 public:
-    
+
+    virtual Node *clone();
     /**
      * Gets the description string. It makes debugging easier.
      * @return A string

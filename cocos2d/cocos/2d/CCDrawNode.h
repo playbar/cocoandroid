@@ -313,6 +313,8 @@ public:
     
     // Overrides
     virtual void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags) override;
+
+    virtual Node *clone() override;
     
     void setLineWidth(GLfloat lineWidth);
 

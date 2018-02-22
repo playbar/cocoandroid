@@ -62,8 +62,12 @@ void LayerManager::createMenu()
     auto translateMenu = MenuItemFont::create("translate", CC_CALLBACK_1(LayerManager::menuTranslateCallback, this));
     translateMenu->setPosition( origin.x + 20., origin.y + 60);
 
+    auto copyMenu = MenuItemFont::create("copy", CC_CALLBACK_1(LayerManager::menuCopyCallback, this));
+    copyMenu->setPosition( origin.x + 20., origin.y + 40);
+
     // create menu, it's an autorelease object
-    auto menu = Menu::create(createMenu, deleteMenu, drawTestMenu, rotaMenu, translateMenu,closeItem, NULL);
+    auto menu = Menu::create(createMenu, deleteMenu, drawTestMenu, rotaMenu, translateMenu,
+                             copyMenu, closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
@@ -127,6 +131,14 @@ void LayerManager::menuTranslateCallback(Ref *pSender)
     setTranslate(100, 100, 0);
 }
 
+void LayerManager::menuCopyCallback(Ref *pSender)
+{
+    LOGE("Fun:%s", __FUNCTION__);
+    if( mCurrentLayer == NULL)
+        return;
+    copyLayer( mCurrentLayer );
+    return;
+}
 
 // on "init" you need to initialize your instance
 bool LayerManager::init()
@@ -341,7 +353,7 @@ int LayerManager::deleteLayer(Node *id)
 }
 int LayerManager::copyLayer(Node * id)
 {
-    Node *player = DrawNode::create();
+    Node *player = mCurrentLayer->clone();
 
     return -1;
 }

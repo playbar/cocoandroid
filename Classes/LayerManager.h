@@ -63,6 +63,7 @@ public:
     void menuDrawTestCallback(Ref *pSender);
     void menuRotaCallback(Ref *pSender);
     void menuTranslateCallback(Ref *pSender);
+    void menuCopyCallback(Ref *pSender);
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);

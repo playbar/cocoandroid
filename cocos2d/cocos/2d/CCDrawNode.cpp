@@ -985,6 +985,13 @@ void DrawNode::setBlendFunc(const BlendFunc &blendFunc)
     _blendFunc = blendFunc;
 }
 
+    Node *DrawNode::clone()
+    {
+       Node *pResule = DrawNode::create();
+       memcpy(pResule, this, sizeof(DrawNode));
+        return pResule;
+    }
+
 void DrawNode::setLineWidth(GLfloat lineWidth)
 {
     if( _block )
