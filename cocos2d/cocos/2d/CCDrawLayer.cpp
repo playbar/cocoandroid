@@ -1,27 +1,3 @@
-/* Copyright (c) 2012 Scott Lembcke and Howling Moon Software
- * Copyright (c) 2012 cocos2d-x.org
- * Copyright (c) 2013-2016 Chukong Technologies Inc.
- * Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 #include "2d/CCDrawLayer.h"
 #include "base/CCEventType.h"
 #include "base/CCConfiguration.h"
@@ -985,10 +961,112 @@ void DrawLayer::setBlendFunc(const BlendFunc &blendFunc)
     _blendFunc = blendFunc;
 }
 
-    Node *DrawLayer::clone()
+    DrawLayer *DrawLayer::clone()
     {
-       Node *pResule = DrawLayer::create();
-       memcpy(pResule, this, sizeof(DrawLayer));
+        DrawLayer *pResule = DrawLayer::create();
+        //Node
+        pResule->_rotationX = this->_rotationX;
+        pResule->_rotationY = this->_rotationY;
+
+        pResule->_rotationZ_X = this->_rotationZ_X;
+        pResule->_rotationZ_Y = this->_rotationZ_Y;
+
+        pResule->_rotationQuat = this->_rotationQuat;
+
+        pResule->_scaleX = this->_scaleX;
+        pResule->_scaleY = this->_scaleY;
+        pResule->_scaleZ = this->_scaleZ;
+
+        pResule->_position = this->_position;
+        pResule->_positionZ = this->_positionZ;
+        pResule->_normalizedPosition = this->_normalizedPosition;
+        pResule->_usingNormalizedPosition = this->_usingNormalizedPosition;
+        pResule->_normalizedPositionDirty = this->_normalizedPositionDirty;
+
+        pResule->_skewX = this->_skewX;
+        pResule->_skewY = this->_skewY;
+
+        pResule->_anchorPointInPoints = this->_anchorPointInPoints;
+        pResule->_anchorPoint = this->_anchorPoint;
+
+        pResule->_contentSize = this->_contentSize;
+        pResule->_contentSizeDirty = this->_contentSizeDirty;
+
+        pResule->_modelViewTransform = this->_modelViewTransform;
+        pResule->_transform = this->_transform;
+        pResule->_transformDirty = this->_transformDirty;
+        pResule->_inverse = this->_inverse;
+        pResule->_inverseDirty = this->_inverseDirty;
+        if( this->_additionalTransform) {
+            pResule->_additionalTransform = new Mat4[2];
+            memcpy(pResule->_additionalTransform, this->_additionalTransform, sizeof(Mat4) * 2);
+        }
+        pResule->_additionalTransformDirty = this->_additionalTransformDirty;
+        pResule->_transformUpdated = this->_transformUpdated;
+        pResule->_orderOfArrival = this->_orderOfArrival;
+        pResule->_localZOrder = this->_localZOrder;
+        pResule->_globalZOrder = this->_globalZOrder;
+        pResule->s_globalOrderOfArrival = this->s_globalOrderOfArrival;
+        pResule->_children = this->_children;
+        pResule->_parent = this->_parent;
+        pResule->_director = this->_director;
+        pResule->_tag = this->_tag;
+        pResule->_name = this->_name;
+        pResule->_hashOfName = this->_hashOfName;
+        pResule->_userData = this->_userData;
+        pResule->_userObject = this->_userObject;
+        pResule->_glProgramState = this->_glProgramState;
+        pResule->_scheduler = this->_scheduler;
+        pResule->_actionManager = this->_actionManager;
+        pResule->_eventDispatcher = this->_eventDispatcher;
+        pResule->_running = this->_running;
+        pResule->_visible = this->_visible;
+        pResule->_block = this->_block;
+        pResule->_ignoreAnchorPointForPosition = this->_ignoreAnchorPointForPosition;
+        pResule->_reorderChildDirty = this->_reorderChildDirty;
+        pResule->_isTransitionFinished = this->_isTransitionFinished;
+        pResule->_componentContainer = this->_componentContainer;
+        pResule->_displayedOpacity = this->_displayedOpacity;
+        pResule->_realOpacity = this->_realOpacity;
+        pResule->_displayedColor = this->_displayedColor;
+        pResule->_realColor = this->_realColor;
+        pResule->_cascadeColorEnabled = this->_cascadeColorEnabled;
+        pResule->_cascadeOpacityEnabled = this->_cascadeOpacityEnabled;
+        pResule->_cameraMask = this->_cameraMask;
+        pResule->_onEnterCallback = this->_onEnterCallback;
+        pResule->_onExitCallback = this->_onExitCallback;
+        pResule->_onEnterTransitionDidFinishCallback = this->_onEnterTransitionDidFinishCallback;
+        pResule->_onExitTransitionDidStartCallback = this->_onExitTransitionDidStartCallback;
+        pResule->__attachedNodeCount = this->__attachedNodeCount;
+
+
+
+        // DrayLayer
+        pResule->ensureCapacity(_bufferCapacity);
+        pResule->_bufferCount = this->_bufferCount;
+        memcpy(pResule->_buffer, this->_buffer, sizeof(V2F_C4B_T2F) * _bufferCapacity);
+        pResule->_dirty = this->_dirty;
+
+        pResule->ensureCapacity(_bufferCapacityGLLine);
+        pResule->_bufferCountGLPoint = this->_bufferCountGLPoint;
+        memcpy(pResule->_bufferGLPoint, this->_bufferGLPoint, sizeof(V2F_C4B_T2F) * _bufferCapacityGLLine);
+        pResule->_dirtyGLPoint = this->_dirtyGLPoint;
+
+        pResule->ensureCapacity(_bufferCapacityGLLine);
+        pResule->_bufferCountGLLine = this->_bufferCountGLLine;
+        memcpy(pResule->_bufferGLLine, this->_bufferGLLine, sizeof(V2F_C4B_T2F) * _bufferCapacityGLLine);
+        pResule->_dirtyGLLine = this->_dirtyGLLine;
+
+        pResule->_blendFunc = this->_blendFunc;
+        pResule->_customCommand = this->_customCommand;
+        pResule->_customCommandGLPoint = this->_customCommandGLPoint;
+        pResule->_customCommandGLLine = this->_customCommandGLLine;
+
+        pResule->_lineWidth = this->_lineWidth;
+        pResule->_defaultLineWidth = _defaultLineWidth;
+
+
+//       memcpy(pResule, this, sizeof(DrawLayer));
         return pResule;
     }
 

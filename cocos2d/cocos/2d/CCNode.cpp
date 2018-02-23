@@ -985,8 +985,7 @@ void Node::addChildHelper(Node* child, int localZOrder, int tag, const std::stri
           } );
     (void)assertNotSelfChild;
     
-    CCASSERT( assertNotSelfChild(),
-              "A node cannot be the child of his own children" );
+    CCASSERT( assertNotSelfChild(), "A node cannot be the child of his own children" );
     
     if (_children.empty())
     {

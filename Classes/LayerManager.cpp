@@ -335,9 +335,9 @@ void LayerManager::menuCloseCallback(Ref* pSender)
 }
 
 
-Node *LayerManager::createLayer()
+DrawLayer *LayerManager::createLayer()
 {
-    Node *draw = DrawLayer::create();
+    DrawLayer *draw = DrawLayer::create();
     addChild(draw, 10);
     DrawBean *db = new DrawBean();
     db->setLayer(draw);
@@ -347,16 +347,25 @@ Node *LayerManager::createLayer()
     return draw;
 }
 
-int LayerManager::deleteLayer(Node *id)
+int LayerManager::deleteLayer(DrawLayer *id)
 {
     removeChild(id);
     return -1;
 }
-int LayerManager::copyLayer(Node * id)
+int LayerManager::copyLayer(DrawLayer * id)
 {
-    Node *player = mCurrentLayer->clone();
+    DrawLayer *player = mCurrentLayer->clone();
+    addChild(player, 10);
+    DrawBean *db = new DrawBean();
+    db->setLayer(player);
+    db->setUserOp(LAYER_CREATE);
+    mCaretake.SetState(db);
+    mCurrentLayer->setVisible(false);
+    mCurrentLayer = player;
 
-    return -1;
+    LOGE("Fun:%s, Line:%d", __FUNCTION__, __LINE__);
+
+    return 1;
 }
 
 int LayerManager::clearLayer(int id)
@@ -367,7 +376,7 @@ int LayerManager::clearLayer(int id)
     }
     return -1;
 }
-int LayerManager::mergeLayer(Node *id1, Node *id2, int merge_mode)
+int LayerManager::mergeLayer(DrawLayer *id1, DrawLayer *id2, int merge_mode)
 {
     return -1;
 }
@@ -376,7 +385,7 @@ int LayerManager::swapLayer(int layer1, int layer2)
     return -1;
 }
 
-Node *LayerManager::getCurrentLayer(int id)
+DrawLayer *LayerManager::getCurrentLayer(int id)
 {
     return mCurrentLayer;
 }

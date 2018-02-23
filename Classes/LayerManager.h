@@ -86,14 +86,14 @@ public:
         }
     }
 public:
-    Node *createLayer(); //返回创建图层的id，发回UI层使用，成功返回从1开始的值，失败返回-1
-    int deleteLayer(Node *id); //删除图层，成功返回1，失败返回-1；
-    int copyLayer(Node *id);  //复制当前图层的内容到新图层，并且返回新图层的id，当前图层为新的图层。成功返回图层id， 失败返回-1。
+    DrawLayer *createLayer(); //返回创建图层的id，发回UI层使用，成功返回从1开始的值，失败返回-1
+    int deleteLayer(DrawLayer *id); //删除图层，成功返回1，失败返回-1；
+    int copyLayer(DrawLayer *id);  //复制当前图层的内容到新图层，并且返回新图层的id，当前图层为新的图层。成功返回图层id， 失败返回-1。
     int clearLayer(int id);//清空当前图层内容，成功返回1， 失败返回-1；
-    int mergeLayer(Node *id1, Node *id2, int merge_mode);// 合并图层, 相邻图层，根据alphe混合, 成功返回合并后的id， 失败返回-1
+    int mergeLayer(DrawLayer *id1, DrawLayer *id2, int merge_mode);// 合并图层, 相邻图层，根据alphe混合, 成功返回合并后的id， 失败返回-1
     int swapLayer(int layer1, int layer2);//交换图层位置信息，成功返回1， 失败返回-1；
-    
-    Node *getCurrentLayer(int id);//获取当前图层，参数id为创建图层id， 成功返回当前id为指定参数的图层，失败返回-1
+
+    DrawLayer *getCurrentLayer(int id);//获取当前图层，参数id为创建图层id， 成功返回当前id为指定参数的图层，失败返回-1
     int setOpacity(float opacity);  //获取当前图层，设置透明度，参数从0-1.0，成功返回1，失败返回-1；
     float getOpacity();//获取当前图层，获取透明度，失败为-1，成功为0.0-1.0的值，
     int setVisiable(int id, bool visiable);//visiable为false为隐藏，true为显示， 设置是否可以显示，成功返回为1，失败为-1
@@ -126,7 +126,7 @@ public:
     int getThumbnailData(); //获取整个截图
 
 private:
-    Node *mCurrentLayer;
+    DrawLayer *mCurrentLayer;
     Caretaker mCaretake;
 
 public: // for test
