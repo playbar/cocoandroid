@@ -341,7 +341,8 @@ Node *LayerManager::createLayer()
     addChild(draw, 10);
     DrawBean *db = new DrawBean();
     db->setLayer(draw);
-    mCaretake.SetState(LAYER_CREATE, db);
+    db->setUserOp(LAYER_CREATE);
+    mCaretake.SetState(db);
     mCurrentLayer = draw;
     return draw;
 }

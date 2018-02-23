@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 #include <time.h>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <platform/CCStdC.h>
 
@@ -21,9 +21,10 @@ NS_CC_BEGIN
     class Node;
 NS_CC_END
 
-
-#define LAYER_CREATE 800000
-#define LAYER_DELETE 880000
+enum USER_OP{
+    LAYER_CREATE = 800000,
+    LAYER_DELETE = 880000
+};
 
 
 struct Point{
@@ -54,12 +55,12 @@ public:
 
     void setLayer(cocos2d::Node *player)
     {
-        mpNode = player;
+        mpLayer = player;
     }
 
     cocos2d::Node *getLayer()
     {
-        return mpNode;
+        return mpLayer;
     }
 
     int getTextureid() {
@@ -145,6 +146,11 @@ public:
         mpointList = pointList;
     }
 
+    void setUserOp(USER_OP op)
+    {
+        mUserop = op;
+    }
+
     /**封装底层数据
      * 数据结构：点数|颜色|宽度|纹理id|类型|点数据
      */
@@ -218,7 +224,8 @@ public:
 
 
 private:
-    cocos2d::Node *mpNode;
+    USER_OP mUserop; // 用户操作动作
+    cocos2d::Node *mpLayer; //当前活动图层
     int mColor;//画笔颜色
     int malpha;//画笔透明度
     int msize;//画笔尺寸
@@ -236,13 +243,18 @@ private:
 class Caretaker
 {
 public:
+    Caretaker()
+    {
+        mstep = 0;
+    }
     DrawBean* GetState(int key)
     {
         return mData[key];
     }
-    void SetState(int key, DrawBean* pMemento)
+    void SetState(DrawBean* pMemento)
     {
-        mData[key] = pMemento;
+        mData[mstep] = pMemento;
+        ++mstep;
     }
     ~Caretaker()
     {
@@ -256,9 +268,14 @@ public:
         }
         mData.clear();
     }
+    unsigned int getStep()
+    {
+        return mstep;
+    }
 
 private:
-    map<int, DrawBean*> mData;
+    unordered_map<int, DrawBean*> mData;
+    unsigned int mstep;
 };
 
 
