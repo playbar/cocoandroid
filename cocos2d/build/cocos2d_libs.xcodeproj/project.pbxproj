@@ -1410,6 +1410,12 @@
 		46C02E0818E91123004B7456 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 46C02E0518E91123004B7456 /* xxhash.c */; };
 		46C02E0918E91123004B7456 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 46C02E0618E91123004B7456 /* xxhash.h */; };
 		46C02E0A18E91123004B7456 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 46C02E0618E91123004B7456 /* xxhash.h */; };
+		4A71F83A20400FF8004F609A /* CCDrawLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A71F83820400FF7004F609A /* CCDrawLayer.h */; };
+		4A71F83B20400FF8004F609A /* CCDrawLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A71F83820400FF7004F609A /* CCDrawLayer.h */; };
+		4A71F83C20400FF8004F609A /* CCDrawLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A71F83820400FF7004F609A /* CCDrawLayer.h */; };
+		4A71F83D20400FF8004F609A /* CCDrawLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A71F83920400FF8004F609A /* CCDrawLayer.cpp */; };
+		4A71F83E20400FF8004F609A /* CCDrawLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A71F83920400FF8004F609A /* CCDrawLayer.cpp */; };
+		4A71F83F20400FF8004F609A /* CCDrawLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A71F83920400FF8004F609A /* CCDrawLayer.cpp */; };
 		4D76BE3A1A4AAF0A00102962 /* CCActionTimelineNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D76BE381A4AAF0A00102962 /* CCActionTimelineNode.cpp */; };
 		4D76BE3B1A4AAF0A00102962 /* CCActionTimelineNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D76BE381A4AAF0A00102962 /* CCActionTimelineNode.cpp */; };
 		4D76BE3C1A4AAF0A00102962 /* CCActionTimelineNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D76BE391A4AAF0A00102962 /* CCActionTimelineNode.h */; };
@@ -5166,6 +5172,8 @@
 		46E7207C1ECAC75C0034BEC7 /* ccShader_ETC1AS_PositionTextureGray.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_ETC1AS_PositionTextureGray.frag; sourceTree = "<group>"; };
 		46E7207E1ECAC75C0034BEC7 /* ccShader_Position.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_Position.vert; sourceTree = "<group>"; };
 		46E7207F1ECACB750034BEC7 /* ccShader_LayerRadialGradient.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_LayerRadialGradient.frag; sourceTree = "<group>"; };
+		4A71F83820400FF7004F609A /* CCDrawLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawLayer.h; sourceTree = "<group>"; };
+		4A71F83920400FF8004F609A /* CCDrawLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDrawLayer.cpp; sourceTree = "<group>"; };
 		4D76BE381A4AAF0A00102962 /* CCActionTimelineNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionTimelineNode.cpp; sourceTree = "<group>"; };
 		4D76BE391A4AAF0A00102962 /* CCActionTimelineNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionTimelineNode.h; sourceTree = "<group>"; };
 		5012168C1AC47380009A4BEA /* CCRenderState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRenderState.cpp; sourceTree = "<group>"; };
@@ -6574,6 +6582,8 @@
 		1A570109180BC8DC0088DEC7 /* draw-nodes */ = {
 			isa = PBXGroup;
 			children = (
+				4A71F83920400FF8004F609A /* CCDrawLayer.cpp */,
+				4A71F83820400FF7004F609A /* CCDrawLayer.h */,
 				1A57010A180BC8ED0088DEC7 /* CCDrawingPrimitives.cpp */,
 				1A57010B180BC8EE0088DEC7 /* CCDrawingPrimitives.h */,
 				1A57010C180BC8EE0088DEC7 /* CCDrawNode.cpp */,
@@ -9511,6 +9521,7 @@
 				B677B0CF1B18492D006762CB /* CCNavMeshAgent.h in Headers */,
 				1A570294180BCCAB0088DEC7 /* CCAnimation.h in Headers */,
 				B665E4081AA80A6600DDB1C5 /* CCPUSphereSurfaceEmitter.h in Headers */,
+				4A71F83A20400FF8004F609A /* CCDrawLayer.h in Headers */,
 				50ABBD421925AB0000A911A9 /* CCMathBase.h in Headers */,
 				1A570298180BCCAB0088DEC7 /* CCAnimationCache.h in Headers */,
 				1A40D1661E8E56C7002E363A /* reader.h in Headers */,
@@ -10324,6 +10335,7 @@
 				507B3F361C31BDD30067B53E /* HttpCookie.h in Headers */,
 				507B3F371C31BDD30067B53E /* CCMathBase.h in Headers */,
 				507B3F381C31BDD30067B53E /* CCProtectedNode.h in Headers */,
+				4A71F83C20400FF8004F609A /* CCDrawLayer.h in Headers */,
 				507B3F3A1C31BDD30067B53E /* CCComBase.h in Headers */,
 				507B3F3C1C31BDD30067B53E /* CCDisplayManager.h in Headers */,
 				507B3F3D1C31BDD30067B53E /* UIButton.h in Headers */,
@@ -11137,6 +11149,7 @@
 				50ABBE981925AB6F00A911A9 /* CCProtocols.h in Headers */,
 				50CB247A19D9C5A100687767 /* AudioEngine-inl.h in Headers */,
 				52B47A321A5349A3004E4C60 /* HttpCookie.h in Headers */,
+				4A71F83B20400FF8004F609A /* CCDrawLayer.h in Headers */,
 				50ABBD431925AB0000A911A9 /* CCMathBase.h in Headers */,
 				15EFA214198A2BB5000C57D3 /* CCProtectedNode.h in Headers */,
 				15AE194419AAD35100C27E9E /* CCComBase.h in Headers */,
@@ -11977,6 +11990,7 @@
 				1A5702EA180BCE750088DEC7 /* CCTileMapAtlas.cpp in Sources */,
 				468A14F51EF223B700ECA675 /* idl_parser.cpp in Sources */,
 				50ABBD971925AB4100A911A9 /* CCGLProgramStateCache.cpp in Sources */,
+				4A71F83D20400FF8004F609A /* CCDrawLayer.cpp in Sources */,
 				46BDE4C91FA86C7F00104C05 /* PointAttachment.c in Sources */,
 				15AE182019AAD2F700C27E9E /* CCBundleReader.cpp in Sources */,
 				B665E2421AA80A6500DDB1C5 /* CCPUCollisionAvoidanceAffector.cpp in Sources */,
@@ -12511,6 +12525,7 @@
 				507B3B0C1C31BDD30067B53E /* CCFontFreeType.cpp in Sources */,
 				468A14EB1EF223B700ECA675 /* idl_gen_fbs.cpp in Sources */,
 				507B3B0D1C31BDD30067B53E /* CCPUTechniqueTranslator.cpp in Sources */,
+				4A71F83F20400FF8004F609A /* CCDrawLayer.cpp in Sources */,
 				507B3B0E1C31BDD30067B53E /* ExtensionDeprecated.cpp in Sources */,
 				507B3B0F1C31BDD30067B53E /* ccTypes.cpp in Sources */,
 				507B3B101C31BDD30067B53E /* DictionaryHelper.cpp in Sources */,
@@ -13181,6 +13196,7 @@
 				292DB16019B461CA00A80320 /* ExtensionDeprecated.cpp in Sources */,
 				468A14EA1EF223B700ECA675 /* idl_gen_fbs.cpp in Sources */,
 				50ABBEAC1925AB6F00A911A9 /* ccTypes.cpp in Sources */,
+				4A71F83E20400FF8004F609A /* CCDrawLayer.cpp in Sources */,
 				15AE196A19AAD35100C27E9E /* DictionaryHelper.cpp in Sources */,
 				B665E26B1AA80A6500DDB1C5 /* CCPUDoFreezeEventHandler.cpp in Sources */,
 				468A14E71EF223B700ECA675 /* idl_gen_cpp.cpp in Sources */,

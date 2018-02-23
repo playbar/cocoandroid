@@ -39,7 +39,7 @@
 
 NS_CC_BEGIN
 
-static const int DEFAULT_LINE_WIDTH = 2;
+//static const int DEFAULT_LINE_WIDTH = 2;
 
 class PointArray;
 /**
@@ -59,7 +59,7 @@ public:
      *
      * @return Return an autorelease object.
      */
-    static DrawNode* create(GLfloat defaultLineWidth = DEFAULT_LINE_WIDTH);
+    static DrawNode* create(GLfloat defaultLineWidth = 2);
     
     /** Draw a point.
      *
@@ -322,7 +322,7 @@ public:
     GLfloat getLineWidth();
 
 CC_CONSTRUCTOR_ACCESS:
-    DrawNode(GLfloat lineWidth = DEFAULT_LINE_WIDTH);
+    DrawNode(GLfloat lineWidth = 2);
     virtual ~DrawNode();
     virtual bool init() override;
 
