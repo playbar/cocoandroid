@@ -33,7 +33,7 @@ THE SOFTWARE.
  *
  * LEGACY FUNCTIONS
  *
- * USE DrawNode instead
+ * USE DrawLayer instead
  *
  */
 

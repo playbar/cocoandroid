@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 #include <string>
 #include "2d/CCNode.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "base/CCProtocols.h"
 #include "renderer/CCTextureAtlas.h"
 #include "renderer/CCTrianglesCommand.h"
@@ -685,7 +685,7 @@ protected:
     SpriteFrame*     _spriteFrame;
     TrianglesCommand _trianglesCommand;     ///
 #if CC_SPRITE_DEBUG_DRAW
-    DrawNode *_debugDrawNode;
+    DrawLayer *_debugDrawNode;
 #endif //CC_SPRITE_DEBUG_DRAW
     //
     // Shared data

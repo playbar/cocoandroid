@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "base/CCEventType.h"
 #include "base/CCConfiguration.h"
 #include "renderer/CCRenderer.h"
@@ -98,9 +98,9 @@ static inline Tex2F __t(const Vec2 &v)
     return *(Tex2F*)&v;
 }
 
-// implementation of DrawNode
+// implementation of DrawLayer
 
-DrawNode::DrawNode(GLfloat lineWidth)
+DrawLayer::DrawLayer(GLfloat lineWidth)
 : _vao(0)
 , _vbo(0)
 , _vaoGLPoint(0)
@@ -125,7 +125,7 @@ DrawNode::DrawNode(GLfloat lineWidth)
     _blendFunc = BlendFunc::ALPHA_PREMULTIPLIED;
 }
 
-DrawNode::~DrawNode()
+DrawLayer::~DrawLayer()
 {
     free(_buffer);
     _buffer = nullptr;
@@ -151,9 +151,9 @@ DrawNode::~DrawNode()
     }
 }
 
-DrawNode* DrawNode::create(GLfloat defaultLineWidth)
+DrawLayer* DrawLayer::create(GLfloat defaultLineWidth)
 {
-    DrawNode* ret = new (std::nothrow) DrawNode(defaultLineWidth);
+    DrawLayer* ret = new (std::nothrow) DrawLayer(defaultLineWidth);
     if (ret && ret->init())
     {
         ret->autorelease();
@@ -166,7 +166,7 @@ DrawNode* DrawNode::create(GLfloat defaultLineWidth)
     return ret;
 }
 
-void DrawNode::ensureCapacity(int count)
+void DrawLayer::ensureCapacity(int count)
 {
     CCASSERT(count>=0, "capacity must be >= 0");
     
@@ -177,7 +177,7 @@ void DrawNode::ensureCapacity(int count)
     }
 }
 
-void DrawNode::ensureCapacityGLPoint(int count)
+void DrawLayer::ensureCapacityGLPoint(int count)
 {
     CCASSERT(count>=0, "capacity must be >= 0");
     
@@ -188,7 +188,7 @@ void DrawNode::ensureCapacityGLPoint(int count)
     }
 }
 
-void DrawNode::ensureCapacityGLLine(int count)
+void DrawLayer::ensureCapacityGLLine(int count)
 {
     CCASSERT(count>=0, "capacity must be >= 0");
     
@@ -199,7 +199,7 @@ void DrawNode::ensureCapacityGLLine(int count)
     }
 }
 
-bool DrawNode::init()
+bool DrawLayer::init()
 {
     _blendFunc = BlendFunc::ALPHA_PREMULTIPLIED;
 
@@ -296,31 +296,31 @@ bool DrawNode::init()
     return true;
 }
 
-void DrawNode::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
+void DrawLayer::draw(Renderer *renderer, const Mat4 &transform, uint32_t flags)
 {
     if(_bufferCount)
     {
         _customCommand.init(_globalZOrder, transform, flags);
-        _customCommand.func = CC_CALLBACK_0(DrawNode::onDraw, this, transform, flags);
+        _customCommand.func = CC_CALLBACK_0(DrawLayer::onDraw, this, transform, flags);
         renderer->addCommand(&_customCommand);
     }
     
     if(_bufferCountGLPoint)
     {
         _customCommandGLPoint.init(_globalZOrder, transform, flags);
-        _customCommandGLPoint.func = CC_CALLBACK_0(DrawNode::onDrawGLPoint, this, transform, flags);
+        _customCommandGLPoint.func = CC_CALLBACK_0(DrawLayer::onDrawGLPoint, this, transform, flags);
         renderer->addCommand(&_customCommandGLPoint);
     }
     
     if(_bufferCountGLLine)
     {
         _customCommandGLLine.init(_globalZOrder, transform, flags);
-        _customCommandGLLine.func = CC_CALLBACK_0(DrawNode::onDrawGLLine, this, transform, flags);
+        _customCommandGLLine.func = CC_CALLBACK_0(DrawLayer::onDrawGLLine, this, transform, flags);
         renderer->addCommand(&_customCommandGLLine);
     }
 }
 
-void DrawNode::onDraw(const Mat4 &transform, uint32_t /*flags*/)
+void DrawLayer::onDraw(const Mat4 &transform, uint32_t /*flags*/)
 {
     getGLProgramState()->apply(transform);
     auto glProgram = this->getGLProgram();
@@ -363,7 +363,7 @@ void DrawNode::onDraw(const Mat4 &transform, uint32_t /*flags*/)
     CHECK_GL_ERROR_DEBUG();
 }
 
-void DrawNode::onDrawGLLine(const Mat4 &transform, uint32_t /*flags*/)
+void DrawLayer::onDrawGLLine(const Mat4 &transform, uint32_t /*flags*/)
 {
     auto glProgram = GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_LENGTH_TEXTURE_COLOR);
     glProgram->use();
@@ -408,7 +408,7 @@ void DrawNode::onDrawGLLine(const Mat4 &transform, uint32_t /*flags*/)
     CHECK_GL_ERROR_DEBUG();
 }
 
-void DrawNode::onDrawGLPoint(const Mat4 &transform, uint32_t /*flags*/)
+void DrawLayer::onDrawGLPoint(const Mat4 &transform, uint32_t /*flags*/)
 {
     auto glProgram = GLProgramCache::getInstance()->getGLProgram(GLProgram::SHADER_NAME_POSITION_COLOR_TEXASPOINTSIZE);
     glProgram->use();
@@ -451,7 +451,7 @@ void DrawNode::onDrawGLPoint(const Mat4 &transform, uint32_t /*flags*/)
     CHECK_GL_ERROR_DEBUG();
 }
 
-void DrawNode::drawPoint(const Vec2& position, const float pointSize, const Color4F &color)
+void DrawLayer::drawPoint(const Vec2& position, const float pointSize, const Color4F &color)
 {
     if( _block )
         return;
@@ -466,12 +466,12 @@ void DrawNode::drawPoint(const Vec2& position, const float pointSize, const Colo
     _dirtyGLPoint = true;
 }
 
-void DrawNode::drawPoints(const Vec2 *position, unsigned int numberOfPoints, const Color4F &color)
+void DrawLayer::drawPoints(const Vec2 *position, unsigned int numberOfPoints, const Color4F &color)
 {
     drawPoints(position, numberOfPoints, 1.0, color);
 }
 
-void DrawNode::drawPoints(const Vec2 *position, unsigned int numberOfPoints, const float pointSize, const Color4F &color)
+void DrawLayer::drawPoints(const Vec2 *position, unsigned int numberOfPoints, const float pointSize, const Color4F &color)
 {
     if( _block )
         return;
@@ -489,7 +489,7 @@ void DrawNode::drawPoints(const Vec2 *position, unsigned int numberOfPoints, con
     _dirtyGLPoint = true;
 }
 
-void DrawNode::drawLine(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+void DrawLayer::drawLine(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
 {
     if( _block )
         return;
@@ -507,7 +507,7 @@ void DrawNode::drawLine(const Vec2 &origin, const Vec2 &destination, const Color
     _dirtyGLLine = true;
 }
 
-void DrawNode::drawRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+void DrawLayer::drawRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
 {
     if( _block )
         return;
@@ -517,7 +517,7 @@ void DrawNode::drawRect(const Vec2 &origin, const Vec2 &destination, const Color
     drawLine(Vec2(origin.x, destination.y), Vec2(origin.x, origin.y), color);
 }
 
-void DrawNode::drawPoly(const Vec2 *poli, unsigned int numberOfPoints, bool closePolygon, const Color4F &color)
+void DrawLayer::drawPoly(const Vec2 *poli, unsigned int numberOfPoints, bool closePolygon, const Color4F &color)
 {
     if( _block )
         return;
@@ -556,7 +556,7 @@ void DrawNode::drawPoly(const Vec2 *poli, unsigned int numberOfPoints, bool clos
     _bufferCountGLLine += vertex_count;
 }
 
-void DrawNode::drawCircle(const Vec2& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY, const Color4F &color)
+void DrawLayer::drawCircle(const Vec2& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY, const Color4F &color)
 {
     if( _block )
         return;
@@ -586,14 +586,14 @@ void DrawNode::drawCircle(const Vec2& center, float radius, float angle, unsigne
     CC_SAFE_DELETE_ARRAY(vertices);
 }
 
-void DrawNode::drawCircle(const Vec2 &center, float radius, float angle, unsigned int segments, bool drawLineToCenter, const Color4F &color)
+void DrawLayer::drawCircle(const Vec2 &center, float radius, float angle, unsigned int segments, bool drawLineToCenter, const Color4F &color)
 {
     if( _block )
         return;
     drawCircle(center, radius, angle, segments, drawLineToCenter, 1.0f, 1.0f, color);
 }
 
-void DrawNode::drawQuadBezier(const Vec2 &origin, const Vec2 &control, const Vec2 &destination, unsigned int segments, const Color4F &color)
+void DrawLayer::drawQuadBezier(const Vec2 &origin, const Vec2 &control, const Vec2 &destination, unsigned int segments, const Color4F &color)
 {
     if( _block )
         return;
@@ -616,7 +616,7 @@ void DrawNode::drawQuadBezier(const Vec2 &origin, const Vec2 &control, const Vec
     CC_SAFE_DELETE_ARRAY(vertices);
 }
 
-void DrawNode::drawCubicBezier(const Vec2 &origin, const Vec2 &control1, const Vec2 &control2, const Vec2 &destination, unsigned int segments, const Color4F &color)
+void DrawLayer::drawCubicBezier(const Vec2 &origin, const Vec2 &control1, const Vec2 &control2, const Vec2 &destination, unsigned int segments, const Color4F &color)
 {
     if( _block )
         return;
@@ -639,7 +639,7 @@ void DrawNode::drawCubicBezier(const Vec2 &origin, const Vec2 &control1, const V
     CC_SAFE_DELETE_ARRAY(vertices);
 }
 
-void DrawNode::drawCardinalSpline(PointArray *config, float tension,  unsigned int segments, const Color4F &color)
+void DrawLayer::drawCardinalSpline(PointArray *config, float tension,  unsigned int segments, const Color4F &color)
 {
     if( _block )
         return;
@@ -680,14 +680,14 @@ void DrawNode::drawCardinalSpline(PointArray *config, float tension,  unsigned i
     CC_SAFE_DELETE_ARRAY(vertices);
 }
 
-void DrawNode::drawCatmullRom(PointArray *points, unsigned int segments, const Color4F &color)
+void DrawLayer::drawCatmullRom(PointArray *points, unsigned int segments, const Color4F &color)
 {
     if( _block )
         return;
     drawCardinalSpline( points, 0.5f, segments, color);
 }
 
-void DrawNode::drawDot(const Vec2 &pos, float radius, const Color4F &color)
+void DrawLayer::drawDot(const Vec2 &pos, float radius, const Color4F &color)
 {
     if( _block )
         return;
@@ -710,7 +710,7 @@ void DrawNode::drawDot(const Vec2 &pos, float radius, const Color4F &color)
     _dirty = true;
 }
 
-void DrawNode::drawRect(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Vec2& p4, const Color4F &color)
+void DrawLayer::drawRect(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Vec2& p4, const Color4F &color)
 {
     if( _block )
         return;
@@ -720,7 +720,7 @@ void DrawNode::drawRect(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Ve
     drawLine(Vec2(p4.x, p4.y), Vec2(p1.x, p1.y), color);
 }
 
-void DrawNode::drawSegment(const Vec2 &from, const Vec2 &to, float radius, const Color4F &color)
+void DrawLayer::drawSegment(const Vec2 &from, const Vec2 &to, float radius, const Color4F &color)
 {
     if( _block )
         return;
@@ -795,7 +795,7 @@ void DrawNode::drawSegment(const Vec2 &from, const Vec2 &to, float radius, const
     _dirty = true;
 }
 
-void DrawNode::drawPolygon(const Vec2 *verts, int count, const Color4F &fillColor, float borderWidth, const Color4F &borderColor)
+void DrawLayer::drawPolygon(const Vec2 *verts, int count, const Color4F &fillColor, float borderWidth, const Color4F &borderColor)
 {
     if( _block )
         return;
@@ -880,7 +880,7 @@ void DrawNode::drawPolygon(const Vec2 *verts, int count, const Color4F &fillColo
     _dirty = true;
 }
 
-void DrawNode::drawSolidRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
+void DrawLayer::drawSolidRect(const Vec2 &origin, const Vec2 &destination, const Color4F &color)
 {
     if( _block )
         return;
@@ -894,14 +894,14 @@ void DrawNode::drawSolidRect(const Vec2 &origin, const Vec2 &destination, const 
     drawSolidPoly(vertices, 4, color );
 }
 
-void DrawNode::drawSolidPoly(const Vec2 *poli, unsigned int numberOfPoints, const Color4F &color)
+void DrawLayer::drawSolidPoly(const Vec2 *poli, unsigned int numberOfPoints, const Color4F &color)
 {
     if( _block )
         return;
     drawPolygon(poli, numberOfPoints, color, 0.0, Color4F(0.0, 0.0, 0.0, 0.0));
 }
 
-void DrawNode::drawSolidCircle(const Vec2& center, float radius, float angle, unsigned int segments, float scaleX, float scaleY, const Color4F &color)
+void DrawLayer::drawSolidCircle(const Vec2& center, float radius, float angle, unsigned int segments, float scaleX, float scaleY, const Color4F &color)
 {
     if( _block )
         return;
@@ -926,14 +926,14 @@ void DrawNode::drawSolidCircle(const Vec2& center, float radius, float angle, un
     CC_SAFE_DELETE_ARRAY(vertices);
 }
 
-void DrawNode::drawSolidCircle( const Vec2& center, float radius, float angle, unsigned int segments, const Color4F& color)
+void DrawLayer::drawSolidCircle( const Vec2& center, float radius, float angle, unsigned int segments, const Color4F& color)
 {
     if( _block )
         return;
     drawSolidCircle(center, radius, angle, segments, 1.0f, 1.0f, color);
 }
 
-void DrawNode::drawTriangle(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Color4F &color)
+void DrawLayer::drawTriangle(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, const Color4F &color)
 {
     if( _block )
         return;
@@ -953,14 +953,14 @@ void DrawNode::drawTriangle(const Vec2 &p1, const Vec2 &p2, const Vec2 &p3, cons
     _dirty = true;
 }
 
-void DrawNode::drawQuadraticBezier(const Vec2& from, const Vec2& control, const Vec2& to, unsigned int segments, const Color4F &color)
+void DrawLayer::drawQuadraticBezier(const Vec2& from, const Vec2& control, const Vec2& to, unsigned int segments, const Color4F &color)
 {
     if( _block )
         return;
     drawQuadBezier(from, control, to, segments, color);
 }
 
-void DrawNode::clear()
+void DrawLayer::clear()
 {
     if( _block )
         return;
@@ -973,33 +973,33 @@ void DrawNode::clear()
     _lineWidth = _defaultLineWidth;
 }
 
-const BlendFunc& DrawNode::getBlendFunc() const
+const BlendFunc& DrawLayer::getBlendFunc() const
 {
     return _blendFunc;
 }
 
-void DrawNode::setBlendFunc(const BlendFunc &blendFunc)
+void DrawLayer::setBlendFunc(const BlendFunc &blendFunc)
 {
     if( _block )
         return;
     _blendFunc = blendFunc;
 }
 
-    Node *DrawNode::clone()
+    Node *DrawLayer::clone()
     {
-       Node *pResule = DrawNode::create();
-       memcpy(pResule, this, sizeof(DrawNode));
+       Node *pResule = DrawLayer::create();
+       memcpy(pResule, this, sizeof(DrawLayer));
         return pResule;
     }
 
-void DrawNode::setLineWidth(GLfloat lineWidth)
+void DrawLayer::setLineWidth(GLfloat lineWidth)
 {
     if( _block )
         return;
     _lineWidth = lineWidth;
 }
 
-GLfloat DrawNode::getLineWidth()
+GLfloat DrawLayer::getLineWidth()
 {
     return this->_lineWidth;
 }

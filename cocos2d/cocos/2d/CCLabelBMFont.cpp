@@ -101,7 +101,7 @@ LabelBMFont::LabelBMFont()
     _cascadeOpacityEnabled = true;
     
 #if CC_LABELBMFONT_DEBUG_DRAW
-    _debugDrawNode = DrawNode::create();
+    _debugDrawNode = DrawLayer::create();
     addChild(_debugDrawNode);
 #endif
 }

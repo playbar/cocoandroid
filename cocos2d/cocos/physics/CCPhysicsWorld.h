@@ -47,7 +47,7 @@ class Director;
 class Node;
 class Sprite;
 class Scene;
-class DrawNode;
+class DrawLayer;
 class PhysicsDebugDraw;
 class EventDispatcher;
 
@@ -305,7 +305,7 @@ public:
     /**
     * Set the debug draw mask of this physics world.
     * 
-    * This physics world will draw shapes and joints by DrawNode according to mask.
+    * This physics world will draw shapes and joints by DrawLayer according to mask.
     * @param mask Mask has four value:DEBUGDRAW_NONE, DEBUGDRAW_SHAPE, DEBUGDRAW_JOINT, DEBUGDRAW_CONTACT and DEBUGDRAW_ALL, default is DEBUGDRAW_NONE
     */
     void setDebugDrawMask(int mask);
@@ -384,7 +384,7 @@ protected:
     Scene* _scene;
     
     bool _autoStep;
-    DrawNode* _debugDraw;
+    DrawLayer* _debugDraw;
     int _debugDrawMask;
     
     EventDispatcher* _eventDispatcher;

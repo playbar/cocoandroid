@@ -33,7 +33,7 @@ THE SOFTWARE.
  *
  * LEGACY FUNCTIONS
  *
- * USE DrawNode instead
+ * USE DrawLayer instead
  *
  */
 
@@ -64,7 +64,7 @@ THE SOFTWARE.
  - ccPointSize()
  - glLineWidth()
  
- @warning These functions draws the Line, Vec2, Polygon, immediately. They aren't batched. If you are going to make a game that depends on these primitives, I suggest creating a batch. Instead you should use DrawNode
+ @warning These functions draws the Line, Vec2, Polygon, immediately. They aren't batched. If you are going to make a game that depends on these primitives, I suggest creating a batch. Instead you should use DrawLayer
  
  */
 

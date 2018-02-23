@@ -126,7 +126,7 @@ VideoPlayer::VideoPlayer()
     _videoView = (void*) new (std::nothrow) _VideoPlayerTizen(this);
 
 #if CC_VIDEOPLAYER_DEBUG_DRAW
-    _debugDrawNode = DrawNode::create();
+    _debugDrawNode = DrawLayer::create();
     addchild(_debugDrawNode);
 #endif
 }

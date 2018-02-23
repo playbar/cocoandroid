@@ -34,7 +34,7 @@ THE SOFTWARE.
 #include "2d/CCDrawingPrimitives.h"
 #include "renderer/CCRenderer.h"
 #include "ui/UILayoutManager.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "2d/CCLayer.h"
 #include "2d/CCSprite.h"
 #include "base/CCEventFocus.h"
@@ -403,7 +403,7 @@ void Layout::setClippingEnabled(bool able)
         case ClippingType::STENCIL:
             if (able)
             {
-                _clippingStencil = DrawNode::create();
+                _clippingStencil = DrawLayer::create();
                 _clippingStencil->setGlobalZOrder(_globalZOrder);
                 if (_running)
                 {

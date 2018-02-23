@@ -88,7 +88,7 @@ cocos2d-x-3.16 Oct.9 2017
 [FIX]           Web: infinite call stack in ArmatureWebGLRenderCmd
 [FIX]           Web: label stroke effect
 [FIX]           Web: ProgressTimer vertex is not updated when changing transform
-[FIX]           Web: DrawNode canvas displayedOpacity rendering
+[FIX]           Web: DrawLayer canvas displayedOpacity rendering
 
 cocos2d-x-3.15.1 May.27 2017
 
@@ -132,7 +132,7 @@ cocos2d-x-3.15 Apr.21 2017
 [FIX]           Core: out scene's `onEnterTransitionDidFinish` is not triggered if using transition scene with `Director::runWithScene()`
 [FIX]           CheckBox: can receive touch up event that is released far from it
 [FIX]           Downloader: is not thread safe and may cause rondom crash on Android
-[FIX]           DrawNode: can't change opacity
+[FIX]           DrawLayer: can't change opacity
 [FIX]           GLProgram: memory leak
 [FIX]           HttpClient: may crash on Android 4.2
 [FIX]           Label: ttf font line wrap
@@ -193,7 +193,7 @@ coocs2d-x-3.14 Dec 22 2016
 [NEW]           Web: Add cc.CONCURRENCY_HTTP_REQUEST_COUNT to control max concurrent task count for XMLHttpRequest
 
 [REFINE]        Add NDEBUG for cpp template Xcode project
-[REFINE]        DrawNode: support float line width
+[REFINE]        DrawLayer: support float line width
 [REFINE]        EditBoxDelegate: add reason for edit end
 [REFINE]        Improve XML parse performance
 [REFINE]        Make batch capacity resizing more efficiently
@@ -211,7 +211,7 @@ coocs2d-x-3.14 Dec 22 2016
 [REFINE]        Web: Reduce overall memory usage
 [REFINE]        Web: Made cc.LabelBMFont and cc.LabelAtlas support texture packing and auto batching
 [REFINE]        Web: Reimplement a much faster ccui.Scale9Sprite
-[REFINE]        Web: Reimplement a much faster cc.DrawNode WebGL renderer
+[REFINE]        Web: Reimplement a much faster cc.DrawLayer WebGL renderer
 [REFINE]        Web: Use stack to avoid recursive call in transform, onEnter, onExit etc, reduce call stack depth
 
 
@@ -467,7 +467,7 @@ cocos2d-x-3.12 Jul 06 2016
 [FIX]           Core: wrong content size if minisize
 [FIX]           Core: can not have a class named `Game` on Windows
 [FIX]           Core: crash if load bad image on Windows
-[FIX]           Core: custom shader uniforms and attributes do not have effect in DrawNode
+[FIX]           Core: custom shader uniforms and attributes do not have effect in DrawLayer
 [FIX]           Core: blend mode doesn't work with animated sprite
 [FIX]           Core: `FileUtils::removeDirectory()` can not work correctly when the path is not end of `/` on iOS and Mac
 [FIX]           JSB: fix some bugs related with JSB debegger
@@ -766,7 +766,7 @@ cocos2d-x-3.8 beta0 August.14 2015
     [NEW]           UI: Enhanced ScrollView with easing out scrolling
     [NEW]           UI: Added PageView vertical scroll support
     [NEW]           UI: Added PageView::JumpToPage API
-    [NEW]           UI: Added a setter for line width in DrawNode
+    [NEW]           UI: Added a setter for line width in DrawLayer
     [NEW]           Action: Permitted setting bitwise flags to action
     [NEW]           Animate: Added Animate's getCurrentFrameIndex function
     [NEW]           FileUtils: Added FileUtils::getFileExtension for getting file's extension name
@@ -1313,8 +1313,8 @@ cocos2d-x-3.4rc1 Jan.15 2015
     [NEW]           VertexBuffer&IndexBuffer: allow setting usage(GL_STATIC_DRAW or GL_DYNAMIC_DRAW) in create method
     [NEW]           Renderer: 3D rendering support for 2d objects
     
-    [FIX]           DrawNode: fix random crash because of init opengl buffer wrongly 
-    [FIX]           DrawNode: drawPoints() can not set ponit size
+    [FIX]           DrawLayer: fix random crash because of init opengl buffer wrongly
+    [FIX]           DrawLayer: drawPoints() can not set ponit size
     [FIX]           EventDispatcher: crash if adding/removing event listeners and dispatching event in event callback function
     [FIX]           GLProgramState: may cause GL_INVALID_VALUE error at start up on Android
     [FIX]           LUA: 0x80000000 can not be converted by lua_tonumber correctly on some devices
@@ -1326,7 +1326,7 @@ cocos2d-x-3.4rc0  Jan.9 2015
     [NEW]           3rd: update luajit to v2.0.3
     
     [FIX]           C++: crash when run clang static analyzer in Xcode
-    [FIX]           DrawNode: can not set color when DrawPoints, wrong behavior of drawRect
+    [FIX]           DrawLayer: can not set color when DrawPoints, wrong behavior of drawRect
     [FIX]           FileUtils: getData() can't get data from file when file was using by other application on windows
     [FIX]           FileUtils: getData() will cause memory leak if file size is 0 on windows
     [FIX]           GLProgram: when there is a shader compile error in shader, it will crash on windows
@@ -1383,7 +1383,7 @@ cocos2d-x-3.3-rc1  Nov.29 2014
     [FIX]           Button: when the dimension of button title is larger than the button, button will scale to fit the dimension of the button title
     [FIX]           Camera: does not work correctly when the up is not (0, 1, 0)
     [FIX]           Director: Uses a low-pass filter to diplay the FPS
-    [FIX]           DrawNode: drawPoint() may cause crash
+    [FIX]           DrawLayer: drawPoint() may cause crash
     [FIX]           EventKeyboard: can not check right Shift, right Ctrl and right ALT
     [FIX]           GLProgramCache: doesn't release old program with the same key before adding a new one
     [FIX]           GLProgramState: enabled GLProgramState restoring on render recreated on WP8
@@ -1451,7 +1451,7 @@ cocos2d-x-3.3-beta0  Sep.20 2014
     [NEW]           3d: added `BillBoard`
     [NEW]           ActionManager: added removeAllActionsByTag()
     [NEW]           Audio: added new audio system for iOS and Android
-    [FIX]           DrawNode: has as many functions as `DrawPrimitive`
+    [FIX]           DrawLayer: has as many functions as `DrawPrimitive`
     [NEW]           GLViewProtocol: added getAllTouches()
     [NEW]           Node: added stopAllActionsByTag()
     [NEW]           PhysicsWorld: add setSubsteps() and getSubsteps()
@@ -1899,7 +1899,7 @@ cocos2d-x-3.0beta2 Jan.24 2014
      [NEW]          Full screen support for desktop platforms.
      [NEW]          Adds performance test for EventDispatcher.
      [NEW]          Adds performance test for Containers(Vector<>, Array, Map<K,V>, Dictionary).
-     [NEW]          DrawNode supports to draw triangle, quad bezier, cubic bezier.
+     [NEW]          DrawLayer supports to draw triangle, quad bezier, cubic bezier.
      [NEW]          Console: added the 'textures', 'fileutils dump' and 'config' commands
      [NEW]          GLCache: glActiveTexture() is cached with GL::activeTexture(). All code MUST call the cached version in order to work correctly
      [NEW]          Label: Uses a struct of TTF configuration for Label::createWithTTF to reduce parameters and make this interface more easily to use.

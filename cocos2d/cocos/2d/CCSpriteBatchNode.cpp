@@ -559,10 +559,10 @@ void SpriteBatchNode::appendChild(Sprite* sprite)
     auto& children = sprite->getChildren();
     for(const auto &child: children) {
 #if CC_SPRITE_DEBUG_DRAW
-        // when using CC_SPRITE_DEBUG_DRAW, a DrawNode is appended to sprites. remove it since only Sprites can be used
+        // when using CC_SPRITE_DEBUG_DRAW, a DrawLayer is appended to sprites. remove it since only Sprites can be used
         // as children in SpriteBatchNode
         // Github issue #14730
-        if (dynamic_cast<DrawNode*>(child)) {
+        if (dynamic_cast<DrawLayer*>(child)) {
             // to avoid calling Sprite::removeChild()
             sprite->Node::removeChild(child, true);
         }

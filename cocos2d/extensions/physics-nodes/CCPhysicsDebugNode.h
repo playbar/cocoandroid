@@ -25,7 +25,7 @@
 #define __PHYSICSNODES_DEBUGNODE_H__
 
 #include "extensions/ExtensionMacros.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "extensions/ExtensionExport.h"
 
 struct cpSpace;

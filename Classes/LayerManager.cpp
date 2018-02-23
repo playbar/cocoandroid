@@ -190,7 +190,7 @@ void LayerManager::drawTest()
     ////////////////
     auto s = Director::getInstance()->getWinSize();
 
-    auto draw = DrawNode::create();
+    auto draw = DrawLayer::create();
     addChild(draw, 10);
     mCurrentLayer = draw;
 
@@ -256,7 +256,7 @@ void LayerManager::drawTest()
         draw->drawDot(Vec2(s.width/2, s.height/2), 10*(10-i), Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
     }
 
-    auto draw2 = DrawNode::create();
+    auto draw2 = DrawLayer::create();
     addChild(draw2, 10);
     // Draw polygons
     Vec2 points[] = { Vec2(s.height/4,0), Vec2(s.width,s.height/5), Vec2(s.width/3*2,s.height) };
@@ -337,7 +337,7 @@ void LayerManager::menuCloseCallback(Ref* pSender)
 
 Node *LayerManager::createLayer()
 {
-    Node *draw = DrawNode::create();
+    Node *draw = DrawLayer::create();
     addChild(draw, 10);
     DrawBean *db = new DrawBean();
     db->setLayer(draw);

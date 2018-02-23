@@ -28,7 +28,7 @@ add_library(cocos2dx_static STATIC
             cocos2d/cocos/2d/CCClippingRectangleNode.cpp
             cocos2d/cocos/2d/CCComponent.cpp
             cocos2d/cocos/2d/CCComponentContainer.cpp
-            cocos2d/cocos/2d/CCDrawNode.cpp
+            cocos2d/cocos/2d/CCDrawLayer.cpp
             cocos2d/cocos/2d/CCDrawingPrimitives.cpp
             cocos2d/cocos/2d/CCFastTMXLayer.cpp
             cocos2d/cocos/2d/CCFastTMXTiledMap.cpp

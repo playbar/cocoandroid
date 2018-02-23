@@ -33,7 +33,7 @@
 #include "2d/CCFontAtlas.h"
 #include "2d/CCSprite.h"
 #include "2d/CCSpriteBatchNode.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "2d/CCCamera.h"
 #include "base/ccUTF8.h"
 #include "platform/CCFileUtils.h"
@@ -392,7 +392,7 @@ Label::Label(TextHAlignment hAlignment /* = TextHAlignment::LEFT */,
     _vAlignment = vAlignment;
 
 #if CC_LABEL_DEBUG_DRAW
-    _debugDrawNode = DrawNode::create();
+    _debugDrawNode = DrawLayer::create();
     addChild(_debugDrawNode);
 #endif
 
@@ -1165,7 +1165,7 @@ void Label::enableUnderline()
     // remove it, just in case to prevent adding two or more
     if (!_underlineNode)
     {
-        _underlineNode = DrawNode::create();
+        _underlineNode = DrawLayer::create();
         addChild(_underlineNode, 100000);
         _contentDirty = true;
     }
@@ -1923,10 +1923,10 @@ void Label::updateDisplayedColor(const Color3B& parentColor)
 
     if (_underlineNode)
     {
-        // FIXME: _underlineNode is not a sprite/label. It is a DrawNode
+        // FIXME: _underlineNode is not a sprite/label. It is a DrawLayer
         // and updating its color doesn't work. it must be re-drawn,
         // which makes it super expensive to change update it frequently
-        // Correct solution is to update the DrawNode directly since we know it is
+        // Correct solution is to update the DrawLayer directly since we know it is
         // a line. Returning a pointer to the line is an option
         _contentDirty = true;
     }

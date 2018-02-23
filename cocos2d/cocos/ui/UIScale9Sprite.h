@@ -38,7 +38,7 @@
  * @{
  */
 NS_CC_BEGIN
-class DrawNode;
+class DrawLayer;
 class Texture2D;
 
 namespace ui {

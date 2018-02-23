@@ -35,7 +35,7 @@
 #include "physics/CCPhysicsJoint.h"
 #include "physics/CCPhysicsHelper.h"
 
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "2d/CCScene.h"
 #include "base/CCDirector.h"
 #include "base/CCEventDispatcher.h"
@@ -193,7 +193,7 @@ static void DrawCircle(cpVect p, cpFloat /*a*/, cpFloat r, cpSpaceDebugColor out
 {
     const Color4F fillColor(fill.r, fill.g, fill.b, fill.a);
     const Color4F outlineColor(outline.r, outline.g, outline.b, outline.a);
-    DrawNode* drawNode = static_cast<DrawNode*>(data);
+    DrawLayer* drawNode = static_cast<DrawLayer*>(data);
     float radius = PhysicsHelper::cpfloat2float(r);
     Vec2 centre = PhysicsHelper::cpv2point(p);
     
@@ -212,7 +212,7 @@ static void DrawCircle(cpVect p, cpFloat /*a*/, cpFloat r, cpSpaceDebugColor out
 static void DrawFatSegment(cpVect a, cpVect b, cpFloat r, cpSpaceDebugColor outline, cpSpaceDebugColor /*fill*/, cpDataPointer data)
 {
     const Color4F outlineColor(outline.r, outline.g, outline.b, outline.a);
-    DrawNode* drawNode = static_cast<DrawNode*>(data);
+    DrawLayer* drawNode = static_cast<DrawLayer*>(data);
     drawNode->drawSegment(PhysicsHelper::cpv2point(a),
                           PhysicsHelper::cpv2point(b),
                           PhysicsHelper::cpfloat2float(r==0 ? 1 : r), outlineColor);
@@ -227,7 +227,7 @@ static void DrawPolygon(int count, const cpVect *verts, cpFloat /*r*/, cpSpaceDe
 {
     const Color4F fillColor(fill.r, fill.g, fill.b, fill.a);
     const Color4F outlineColor(outline.r, outline.g, outline.b, outline.a);
-    DrawNode* drawNode = static_cast<DrawNode*>(data);
+    DrawLayer* drawNode = static_cast<DrawLayer*>(data);
     int num = count;
     Vec2* seg = new (std::nothrow) Vec2[num];
     for(int i=0;i<num;++i)
@@ -241,7 +241,7 @@ static void DrawPolygon(int count, const cpVect *verts, cpFloat /*r*/, cpSpaceDe
 static void DrawDot(cpFloat /*size*/, cpVect pos, cpSpaceDebugColor color, cpDataPointer data)
 {
     const Color4F dotColor(color.r, color.g, color.b, color.a);
-    DrawNode* drawNode = static_cast<DrawNode*>(data);
+    DrawLayer* drawNode = static_cast<DrawLayer*>(data);
     drawNode->drawDot(PhysicsHelper::cpv2point(pos), 2, dotColor);
 }
 
@@ -269,7 +269,7 @@ void PhysicsWorld::debugDraw()
 {
     if (_debugDraw == nullptr)
     {
-        _debugDraw = DrawNode::create();
+        _debugDraw = DrawLayer::create();
         _debugDraw->retain();
         Director::getInstance()->getRunningScene()->addChild(_debugDraw);
     }

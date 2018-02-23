@@ -37,7 +37,7 @@ THE SOFTWARE.
  */
 NS_CC_BEGIN
 
-class DrawNode;
+class DrawLayer;
 class LayerColor;
 class LayerGradient;
 class StencilStateManager;
@@ -627,7 +627,7 @@ protected:
     bool _clippingEnabled;
     Type _layoutType;
     ClippingType _clippingType;
-    DrawNode* _clippingStencil;
+    DrawLayer* _clippingStencil;
     bool _scissorOldState;
     Rect _clippingOldRect;
     Rect _clippingRect;

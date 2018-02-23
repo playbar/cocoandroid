@@ -186,7 +186,7 @@ namespace experimental{
 
         protected:
 #if CC_VIDEOPLAYER_DEBUG_DRAW
-            DrawNode *_debugDrawNode;
+            DrawLayer *_debugDrawNode;
 #endif
 
             enum class Source

@@ -40,7 +40,7 @@ Use any of these editors to generate BMFonts:
 #include "2d/CCLabel.h"
 #if CC_LABELBMFONT_DEBUG_DRAW
 #include "renderer/CCCustomCommand.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #endif
 
 NS_CC_BEGIN
@@ -139,7 +139,7 @@ public:
 
 private:
 #if CC_LABELBMFONT_DEBUG_DRAW
-    DrawNode *_debugDrawNode;
+    DrawLayer *_debugDrawNode;
 #endif
     
     // name of fntFile

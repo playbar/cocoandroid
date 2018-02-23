@@ -33,7 +33,7 @@
 #include "renderer/ccShaders.h"
 #include "platform/CCImage.h"
 #include "base/CCNinePatchImageParser.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #include "2d/CCCamera.h"
 #include "renderer/CCRenderer.h"
 

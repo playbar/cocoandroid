@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "2d/CCAtlasNode.h"
 #if CC_LABELATLAS_DEBUG_DRAW
 #include "renderer/CCCustomCommand.h"
-#include "2d/CCDrawNode.h"
+#include "2d/CCDrawLayer.h"
 #endif
 NS_CC_BEGIN
 
@@ -101,7 +101,7 @@ CC_CONSTRUCTOR_ACCESS:
     :_string("")
     {
 #if CC_LABELATLAS_DEBUG_DRAW
-        _debugDrawNode = DrawNode::create();
+        _debugDrawNode = DrawLayer::create();
         addChild(_debugDrawNode);
 #endif
     }
@@ -115,7 +115,7 @@ protected:
     virtual void updateColor() override;
 
 #if CC_LABELATLAS_DEBUG_DRAW
-    DrawNode *_debugDrawNode;
+    DrawLayer *_debugDrawNode;
 #endif
 
     // string to render

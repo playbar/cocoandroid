@@ -409,7 +409,7 @@ Developers:
 
     ThePickleMan
         Adding 'rotationIsDir' property to ParticleSystem.
-        DrawNode supports to draw triangle, quad bezier, cubic bezier.
+        DrawLayer supports to draw triangle, quad bezier, cubic bezier.
 
     Jianghua (jxhgzs)
         Adding an additional transform for CCNode.
@@ -425,8 +425,8 @@ Developers:
         Enhance ScrollView with easing out scrolling.
         Add scroll bar feature into ui::ScrollView.
         Add RadioButton and RaidoButtonGroup widgets.
-        Add a setter for line width in DrawNode.
-        UI: Added a setter for line width in DrawNode
+        Add a setter for line width in DrawLayer.
+        UI: Added a setter for line width in DrawLayer
         UI: Added ScrollViewBar for displaying a scroll bar at the side of ScrollView
         UI: Added RadioButton widget
         UI: Refined scroll event dispatching for ScrollView

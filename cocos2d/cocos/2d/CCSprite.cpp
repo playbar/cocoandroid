@@ -322,7 +322,7 @@ Sprite::Sprite(void)
 , _stretchEnabled(true)
 {
 #if CC_SPRITE_DEBUG_DRAW
-    _debugDrawNode = DrawNode::create();
+    _debugDrawNode = DrawLayer::create();
     addChild(_debugDrawNode);
 #endif //CC_SPRITE_DEBUG_DRAW
 }

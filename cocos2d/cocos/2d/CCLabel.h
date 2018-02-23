@@ -91,7 +91,7 @@ enum class TextFormatter : char
 
 class Sprite;
 class SpriteBatchNode;
-class DrawNode;
+class DrawLayer;
 class EventListenerCustom;
 
 /**
@@ -769,7 +769,7 @@ protected:
     EventListenerCustom* _resetTextureListener;
 
 #if CC_LABEL_DEBUG_DRAW
-    DrawNode* _debugDrawNode;
+    DrawLayer* _debugDrawNode;
 #endif
 
     bool _enableWrap;
@@ -779,7 +779,7 @@ protected:
     float _originalFontSize;
 
     bool _boldEnabled;
-    DrawNode* _underlineNode;
+    DrawLayer* _underlineNode;
     bool _strikethroughEnabled;
 
 private:

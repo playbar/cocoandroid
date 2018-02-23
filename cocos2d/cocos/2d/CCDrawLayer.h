@@ -29,8 +29,8 @@
  *
  */
 
-#ifndef __CCDRAWNODES_CCDRAW_NODE_H__
-#define __CCDRAWNODES_CCDRAW_NODE_H__
+#ifndef __CCDRAWNODES_CCDRAW_LAYER_H__
+#define __CCDRAWNODES_CCDRAW_LAYER_H__
 
 #include "2d/CCNode.h"
 #include "base/ccTypes.h"
@@ -47,19 +47,19 @@ class PointArray;
  * @{
  */
 
-/** @class DrawNode
+/** @class DrawLayer
  * @brief Node that draws dots, segments and polygons.
  * Faster than the "drawing primitives" since they draws everything in one single batch.
  * @since v2.1
  */
-class CC_DLL DrawNode : public Node
+class CC_DLL DrawLayer : public Node
 {
 public:
-    /** creates and initialize a DrawNode node.
+    /** creates and initialize a DrawLayer node.
      *
      * @return Return an autorelease object.
      */
-    static DrawNode* create(GLfloat defaultLineWidth = DEFAULT_LINE_WIDTH);
+    static DrawLayer* create(GLfloat defaultLineWidth = DEFAULT_LINE_WIDTH);
     
     /** Draw a point.
      *
@@ -322,8 +322,8 @@ public:
     GLfloat getLineWidth();
 
 CC_CONSTRUCTOR_ACCESS:
-    DrawNode(GLfloat lineWidth = DEFAULT_LINE_WIDTH);
-    virtual ~DrawNode();
+    DrawLayer(GLfloat lineWidth = DEFAULT_LINE_WIDTH);
+    virtual ~DrawLayer();
     virtual bool init() override;
 
 protected:
@@ -365,9 +365,9 @@ protected:
 
     GLfloat  _defaultLineWidth;
 private:
-    CC_DISALLOW_COPY_AND_ASSIGN(DrawNode);
+    CC_DISALLOW_COPY_AND_ASSIGN(DrawLayer);
 };
 /** @} */
 NS_CC_END
 
-#endif // __CCDRAWNODES_CCDRAW_NODE_H__
+#endif // __CCDRAWNODES_CCDRAW_LAYER_H__
