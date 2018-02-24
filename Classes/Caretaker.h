@@ -47,6 +47,17 @@ public:
         msize = 5;
         mmode = 0;
         mtextureid = 0;
+        mbyteData = NULL;
+    }
+
+    ~DrawBean()
+    {
+        if( mbyteData != NULL )
+        {
+            delete []mbyteData;
+            mbyteData = NULL;
+        }
+        mpLayer = NULL;
     }
 
     void addPoint(Point &point){
@@ -245,7 +256,8 @@ class Caretaker
 public:
     Caretaker()
     {
-        mstep = 0;
+        mTotalStep = 0;
+        mCurrentStep = 0;
     }
     DrawBean* GetState(int key)
     {
@@ -253,9 +265,40 @@ public:
     }
     void SetState(DrawBean* pMemento)
     {
-        mData[mstep] = pMemento;
-        ++mstep;
+        if( mTotalStep > mCurrentStep )
+        {
+            for (int i = mTotalStep + 1; i < mCurrentStep; ++i) {
+                DrawBean *pTemp = mData[i];
+                delete pTemp;
+            }
+        }
+        ++mCurrentStep;
+        mData[mCurrentStep] = pMemento;
+        mTotalStep = mCurrentStep;
     }
+
+    DrawBean *previous(unsigned int step = 1)
+    {
+        if( mCurrentStep - step < 1 )
+        {
+            return mData[1];
+        } else{
+            mCurrentStep = mCurrentStep - step;
+            return mData[mCurrentStep];
+        }
+    }
+
+    DrawBean *next(unsigned int step = 1)
+    {
+        if( mCurrentStep + step > mTotalStep )
+        {
+            return mData[mTotalStep];
+        } else{
+            mCurrentStep = mCurrentStep + step;
+            return mData[mCurrentStep];
+        }
+    }
+
     ~Caretaker()
     {
         auto it = mData.begin();
@@ -270,12 +313,13 @@ public:
     }
     unsigned int getStep()
     {
-        return mstep;
+        return mTotalStep;
     }
 
 private:
     unordered_map<int, DrawBean*> mData;
-    unsigned int mstep;
+    unsigned int mTotalStep;
+    unsigned int mCurrentStep;
 };
 
 
