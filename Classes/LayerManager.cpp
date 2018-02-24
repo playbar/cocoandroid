@@ -72,8 +72,6 @@ void LayerManager::createMenu()
     this->addChild(menu, 1);
 
 
-
-
 }
 
 void LayerManager::menuCreateCallback(Ref *pSender)
@@ -95,21 +93,41 @@ void LayerManager::menuDrawTestCallback(Ref *pSender)
     LOGE("Fun:%s", __FUNCTION__);
     if( mCurrentLayer == NULL)
         return;
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        float fx = 100; //origin.x + visibleSize.width/2;
-        float fy = 10; //origin.y + visibleSize.height - label->getContentSize().height;
-        // position the label on the center of the screen
-        label->setPosition(fx, fy);
 
-        // add the label as a child to this layer
-        mCurrentLayer->addChild(label, 1);
-    }
+    auto s = Director::getInstance()->getWinSize();
+
+    mCurrentLayer->drawPoint(Vec2(s.width/2 -100, s.height/2 - 100), 50, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
+//
+//    mCurrentLayer->drawPoint(Vec2(s.width/2+120, s.height/2+120), 10, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
+//
+//    // draw 4 small points
+//    Vec2 position[] = { Vec2(60,60), Vec2(70,70), Vec2(60,70), Vec2(70,60) };
+//    mCurrentLayer->drawPoints( position, 4, 5, Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
+//
+//    // draw a line
+//    mCurrentLayer->drawLine(Vec2(0,0), Vec2(s.width, s.height), Color4F(1.0, 0.0, 0.0, 0.5));
+
+    // draw a rectangle
+//    mCurrentLayer->drawRect(Vec2(23,23), Vec2(7,7), Color4F(1,1,0,1));
+//
+//    mCurrentLayer->drawRect(Vec2(15,30), Vec2(30,15), Vec2(15,0), Vec2(0,15), Color4F(CCRANDOM_0_1(), CCRANDOM_0_1(), CCRANDOM_0_1(), 1));
+
+
+//    Label *label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+//    if (label == nullptr)
+//    {
+//        problemLoading("'fonts/Marker Felt.ttf'");
+//    }
+//    else
+//    {
+//        float fx = 100; //origin.x + visibleSize.width/2;
+//        float fy = 10; //origin.y + visibleSize.height - label->getContentSize().height;
+//        // position the label on the center of the screen
+//        label->setPosition(fx, fy);
+//
+//        // add the label as a child to this layer
+//        mCurrentLayer->addChild(label, 1);
+//    }
 
 }
 
@@ -166,7 +184,7 @@ bool LayerManager::init()
 
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+    Sprite *sprite = Sprite::create("HelloWorld.png");
     if (sprite == nullptr)
     {
         problemLoading("'HelloWorld.png'");
@@ -355,12 +373,14 @@ int LayerManager::deleteLayer(DrawLayer *id)
 int LayerManager::copyLayer(DrawLayer * id)
 {
     DrawLayer *player = mCurrentLayer->clone();
+    player->setPositionX(100);
+//    player->setPositionY(100);
     addChild(player, 10);
     DrawBean *db = new DrawBean();
     db->setLayer(player);
     db->setUserOp(LAYER_CREATE);
     mCaretake.SetState(db);
-    mCurrentLayer->setVisible(false);
+//    mCurrentLayer->setVisible(false);
     mCurrentLayer = player;
 
     LOGE("Fun:%s, Line:%d", __FUNCTION__, __LINE__);

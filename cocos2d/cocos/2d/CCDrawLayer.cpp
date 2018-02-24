@@ -98,6 +98,10 @@ DrawLayer::DrawLayer(GLfloat lineWidth)
 , _lineWidth(lineWidth)
 , _defaultLineWidth(lineWidth)
 {
+    static int layercount = 0;
+    char name[16] = {0};
+    sprintf(name, "layer_%d", ++layercount);
+    _layerName = name;
     _blendFunc = BlendFunc::ALPHA_PREMULTIPLIED;
 }
 
@@ -1044,18 +1048,31 @@ void DrawLayer::setBlendFunc(const BlendFunc &blendFunc)
         // DrayLayer
         pResule->ensureCapacity(_bufferCapacity);
         pResule->_bufferCount = this->_bufferCount;
-        memcpy(pResule->_buffer, this->_buffer, sizeof(V2F_C4B_T2F) * _bufferCapacity);
-        pResule->_dirty = this->_dirty;
+
+        if( pResule->_bufferCount > 0) {
+            memcpy(pResule->_buffer, this->_buffer, sizeof(V2F_C4B_T2F) * _bufferCount);
+            pResule->_dirty = true;
+        } else{
+            pResule->_dirty = this->_dirty;
+        }
 
         pResule->ensureCapacity(_bufferCapacityGLLine);
         pResule->_bufferCountGLPoint = this->_bufferCountGLPoint;
-        memcpy(pResule->_bufferGLPoint, this->_bufferGLPoint, sizeof(V2F_C4B_T2F) * _bufferCapacityGLLine);
-        pResule->_dirtyGLPoint = this->_dirtyGLPoint;
+        if(pResule->_bufferCountGLPoint > 0){
+            memcpy(pResule->_bufferGLPoint, this->_bufferGLPoint, sizeof(V2F_C4B_T2F) * _bufferCountGLPoint);
+            pResule->_dirtyGLPoint = true;
+        }else {
+            pResule->_dirtyGLPoint = this->_dirtyGLPoint;
+        }
 
         pResule->ensureCapacity(_bufferCapacityGLLine);
         pResule->_bufferCountGLLine = this->_bufferCountGLLine;
-        memcpy(pResule->_bufferGLLine, this->_bufferGLLine, sizeof(V2F_C4B_T2F) * _bufferCapacityGLLine);
-        pResule->_dirtyGLLine = this->_dirtyGLLine;
+        if( pResule->_bufferCountGLLine > 0 ){
+            memcpy(pResule->_bufferGLLine, this->_bufferGLLine, sizeof(V2F_C4B_T2F) * _bufferCountGLLine);
+            pResule->_dirtyGLLine = true;
+        }else {
+            pResule->_dirtyGLLine = this->_dirtyGLLine;
+        }
 
         pResule->_blendFunc = this->_blendFunc;
         pResule->_customCommand = this->_customCommand;

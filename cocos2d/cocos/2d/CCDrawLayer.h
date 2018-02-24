@@ -303,6 +303,7 @@ CC_CONSTRUCTOR_ACCESS:
     virtual bool init() override;
 
 protected:
+    std::string _layerName;
     void ensureCapacity(int count);
     void ensureCapacityGLPoint(int count);
     void ensureCapacityGLLine(int count);
