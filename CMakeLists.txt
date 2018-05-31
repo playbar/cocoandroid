@@ -387,6 +387,7 @@ set_target_properties(tiff_lib PROPERTIES IMPORTED_LOCATION
             Classes/LayerManager.cpp
             Classes/Caretaker.cpp
             Classes/VisibleRect.cpp
+            Classes/JsonUtils.cpp
             )
 
  target_include_directories(MyGame PRIVATE
@@ -396,6 +397,7 @@ set_target_properties(tiff_lib PROPERTIES IMPORTED_LOCATION
                            ${CMAKE_CURRENT_SOURCE_DIR}/Classes
                            ${CMAKE_CURRENT_SOURCE_DIR}/libcocos2dx/src/main/cpp
                            ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/cocos/audio/include
+                           ${CMAKE_CURRENT_SOURCE_DIR}/cocos2d/external
                            ${ANDROID_NDK}/sources/third_party/shaderc/include)
 
 
